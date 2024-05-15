@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login';
 import Register from './screens/Register';
+import PlayStory from './screens/PlayStory';
 
 function HomeScreen({ navigation }) {
     return (
@@ -33,6 +34,7 @@ function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Home">
+                <Stack.Screen name="PlayStory" component={PlayStory} options={{ headerShown: false }} />
                 <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
             </Stack.Navigator>

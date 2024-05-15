@@ -36,7 +36,7 @@ export default function Register({ navigation }) {
 
 
                     <TouchableHighlight style={styles.button} >
-                        <Text style={{ textAlign: "center" }}>Register</Text>
+                        <Text style={{ textAlign: "center", fontWeight: "400" }}>REGISTER</Text>
                     </TouchableHighlight>
 
                     <TouchableHighlight style={{}} onPress={() => navigation.navigate('Login')}>
