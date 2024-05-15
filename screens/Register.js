@@ -81,7 +81,7 @@ export default function Register({ navigation }) {
                     <TextInput placeholder='Email..' style={styles.textInput} />
 
 
-                    <TextInput placeholder='Password..' style={styles.textInput} />
+                    <TextInput placeholder='Password..' style={styles.textInput} secureTextEntry={!passwordVisible} />
 
 
                     <TouchableHighlight style={styles.button} >
