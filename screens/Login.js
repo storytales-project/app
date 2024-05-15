@@ -33,11 +33,15 @@ export default function Login({ navigation }) {
 
 
                     <TouchableHighlight style={styles.button} >
-                        <Text style={{ textAlign: "center" }}>Login</Text>
+                        <Text style={{ textAlign: "center", fontWeight: "400" }}>LOGIN</Text>
                     </TouchableHighlight>
 
                     <TouchableHighlight style={{}} onPress={() => navigation.navigate('Register')}>
                         <Text style={{ textAlign: "center", color: "white" }}>Go to Register..</Text>
+                    </TouchableHighlight>
+
+                    <TouchableHighlight style={{ margin: 20 }} onPress={() => navigation.navigate('PlayStory')}>
+                        <Text style={{ textAlign: "center", color: "white" }}>Go to PlayStory..</Text>
                     </TouchableHighlight>
 
                     <StatusBar style="auto" />
