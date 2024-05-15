@@ -1,15 +1,50 @@
-// import { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { ActivityIndicator, Alert, Image, ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
-// import { gql, useMutation } from "@apollo/client";
-// import AuthContext from "../context/auth";
-// import * as SecureStore from "expo-secure-store";
+import { gql, useMutation } from "@apollo/client";
+import * as SecureStore from "expo-secure-store";
+import AuthContext from "../context/Auth";
 
 
-
+const LOGIN = gql`
+mutation Mutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+        accessToken
+    }
+}`
 
 
 export default function Login({ navigation }) {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const { setIsSignedIn } = useContext(AuthContext)
+    const [passwordVisible, setPasswordVisible] = useState(false)
 
+    const [login, { data, loading, errpr }] = useMutation(LOGIN, {
+        onCompleted: async (data) => {
+            await SecureStore.setItemAsync("accessToken", data?.login.accessToken)
+            setIsSignedIn(true)
+        }
+    })
+
+    const handleLogin = async () => {
+        try {
+            await login({
+                variables: { email, password }
+            })
+            Alert.alert("Successfully Login")
+            navigation.navigate("PlayStory")
+        } catch (error) {
+            Alert.alert("Error", error.message)
+        }
+    }
+
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
 
 
     return (
@@ -29,7 +64,7 @@ export default function Login({ navigation }) {
 
                     <TextInput placeholder='Username..' style={styles.textInput} />
 
-                    <TextInput placeholder='Password..' style={styles.textInput} />
+                    <TextInput placeholder='Password..' style={styles.textInput} secureTextEntry={!passwordVisible} />
 
 
                     <TouchableHighlight style={styles.button} >
