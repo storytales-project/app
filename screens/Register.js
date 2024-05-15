@@ -3,8 +3,57 @@ import { useState } from "react";
 import { ActivityIndicator, Alert, Image, ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
 
 
-export default function Register({ navigation }) {
+const REGISTER = gql`
+mutation Register(
+    $username: String!
+    $email: String!
+    $password: String!
+) {
+    register(
+        username : $$username 
+        email : $$email 
+        password : $$password
+        ) {
+            _id
+            username
+            email
+            password
+        }
+}`
 
+
+export default function Register({ navigation }) {
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [passwordVisible, setPasswordVisible] = useState(false)
+
+    const [register, { data, loading, error }] = useMutation(REGISTER)
+
+    const handleRegister = async () => {
+        try {
+            await register({
+                variables: {
+                    username,
+                    email,
+                    password,
+                }
+            })
+            Alert.alert("Registration Success")
+            navigation.navigate("Login")
+        } catch (error) {
+            Alert.alert("Error", error.message)
+        }
+    }
+
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator
+                    size="large" />
+            </View>
+        );
+    }
 
 
     return (
