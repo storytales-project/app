@@ -34,9 +34,9 @@ function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen name="PlayStory" component={PlayStory} options={{ headerShown: false }} />
                 <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+                <Stack.Screen name="PlayStory" component={PlayStory} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

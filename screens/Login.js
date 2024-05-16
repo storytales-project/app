@@ -16,35 +16,35 @@ mutation Mutation($email: String!, $password: String!) {
 export default function Login({ navigation }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { setIsSignedIn } = useContext(AuthContext)
+    // const { setIsSignedIn } = useContext(AuthContext)
     const [passwordVisible, setPasswordVisible] = useState(false)
 
-    const [login, { data, loading, errpr }] = useMutation(LOGIN, {
-        onCompleted: async (data) => {
-            await SecureStore.setItemAsync("accessToken", data?.login.accessToken)
-            setIsSignedIn(true)
-        }
-    })
+    // const [login, { data, loading, errpr }] = useMutation(LOGIN, {
+    //     onCompleted: async (data) => {
+    //         await SecureStore.setItemAsync("accessToken", data?.login.accessToken)
+    //         setIsSignedIn(true)
+    //     }
+    // })
 
-    const handleLogin = async () => {
-        try {
-            await login({
-                variables: { email, password }
-            })
-            Alert.alert("Successfully Login")
-            navigation.navigate("PlayStory")
-        } catch (error) {
-            Alert.alert("Error", error.message)
-        }
-    }
+    // const handleLogin = async () => {
+    //     try {
+    //         await login({
+    //             variables: { email, password }
+    //         })
+    //         Alert.alert("Successfully Login")
+    //         navigation.navigate("PlayStory")
+    //     } catch (error) {
+    //         Alert.alert("Error", error.message)
+    //     }
+    // }
 
-    if (loading) {
-        return (
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <ActivityIndicator size="large" />
-            </View>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    //             <ActivityIndicator size="large" />
+    //         </View>
+    //     );
+    // }
 
 
     return (

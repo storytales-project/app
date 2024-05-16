@@ -10,9 +10,9 @@ mutation Register(
     $password: String!
 ) {
     register(
-        username : $$username 
-        email : $$email 
-        password : $$password
+        username : $username 
+        email : $email 
+        password : $password
         ) {
             _id
             username
@@ -28,32 +28,32 @@ export default function Register({ navigation }) {
     const [password, setPassword] = useState("")
     const [passwordVisible, setPasswordVisible] = useState(false)
 
-    const [register, { data, loading, error }] = useMutation(REGISTER)
+    // const [register, { data, loading, error }] = useMutation(REGISTER)
 
-    const handleRegister = async () => {
-        try {
-            await register({
-                variables: {
-                    username,
-                    email,
-                    password,
-                }
-            })
-            Alert.alert("Registration Success")
-            navigation.navigate("Login")
-        } catch (error) {
-            Alert.alert("Error", error.message)
-        }
-    }
+    // const handleRegister = async () => {
+    //     try {
+    //         await register({
+    //             variables: {
+    //                 username,
+    //                 email,
+    //                 password,
+    //             }
+    //         })
+    //         Alert.alert("Registration Success")
+    //         navigation.navigate("Login")
+    //     } catch (error) {
+    //         Alert.alert("Error", error.message)
+    //     }
+    // }
 
-    if (loading) {
-        return (
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <ActivityIndicator
-                    size="large" />
-            </View>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    //             <ActivityIndicator
+    //                 size="large" />
+    //         </View>
+    //     );
+    // }
 
 
     return (
