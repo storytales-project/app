@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import PlayStory from './screens/PlayStory';
+import Home from './screens/Home';
 
 function HomeScreen({ navigation }) {
     return (
@@ -38,7 +39,7 @@ function TabBottom() {
 
         <Tab.Navigator>
             <Tab.Screen name="PlayStory1" component={PlayStory} options={{ headerShown: false }} />
-            <Tab.Screen name="PlayStory2" component={PlayStory} options={{ headerShown: false }} />
+            <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
         </Tab.Navigator>
     )
 }
@@ -49,7 +50,7 @@ function App() {
             <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-                <Stack.Screen name="PlayStory" component={TabBottom} />
+                <Stack.Screen name="PlayStory" component={TabBottom} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
