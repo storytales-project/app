@@ -33,13 +33,23 @@ const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
+function TabBottom() {
+    return (
+
+        <Tab.Navigator>
+            <Tab.Screen name="PlayStory1" component={PlayStory} options={{ headerShown: false }} />
+            <Tab.Screen name="PlayStory2" component={PlayStory} options={{ headerShown: false }} />
+        </Tab.Navigator>
+    )
+}
+
 function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-                <Stack.Screen name="PlayStory" component={PlayStory} options={{ headerShown: false }} />
+                <Stack.Screen name="PlayStory" component={TabBottom} />
             </Stack.Navigator>
         </NavigationContainer>
     );
