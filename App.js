@@ -4,6 +4,7 @@ import * as React from 'react';
 import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import PlayStory from './screens/PlayStory';
@@ -29,6 +30,8 @@ function DetailsScreen() {
 }
 
 const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
 
 function App() {
     return (

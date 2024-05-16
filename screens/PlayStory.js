@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 import ImageViewer from '../components/ImageViewer';
@@ -10,7 +10,7 @@ import Button from '../components/Button';
 
 const PlaceholderImage = require('../assets/background-image.png');
 
-export default function PlayStory() {
+export default function PlayStory({ navigation }) {
     const [showAppOptions, setShowAppOptions] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -62,6 +62,9 @@ export default function PlayStory() {
                     />
                 </View>
             )}
+            <TouchableHighlight style={{}} onPress={() => navigation.navigate('Register')}>
+                <Text style={{ textAlign: "center", color: "white" }}>Go to Register..</Text>
+            </TouchableHighlight>
             <StatusBar style="auto" />
         </View>
     );
