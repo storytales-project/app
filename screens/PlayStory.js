@@ -9,17 +9,14 @@ import IconButton from '../components/IconButton';
 import Button from '../components/Button';
 
 const PlaceholderImage = require('../assets/background-image.png');
-
 export default function PlayStory({ navigation }) {
     const [showAppOptions, setShowAppOptions] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
             quality: 1,
         });
-
         if (!result.canceled) {
             setSelectedImage(result.assets[0].uri);
             setShowAppOptions(true);
@@ -64,6 +61,9 @@ export default function PlayStory({ navigation }) {
             )}
             <TouchableHighlight style={{}} onPress={() => navigation.navigate('Register')}>
                 <Text style={{ textAlign: "center", color: "white" }}>Go to Register..</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={{}} onPress={() => navigation.navigate('Profile')}>
+                <Text style={{ textAlign: "center", color: "white" }}>Go to profile..</Text>
             </TouchableHighlight>
             <StatusBar style="auto" />
         </View>
