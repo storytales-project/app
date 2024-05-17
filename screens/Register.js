@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { ActivityIndicator, Alert, Image, ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 const REGISTER = gql`
 mutation Register(
@@ -10,25 +10,23 @@ mutation Register(
     $password: String!
 ) {
     register(
-        username : $username 
-        email : $email 
-        password : $password
-        ) {
-            _id
-            username
-            email
-            password
-        }
+        username: $username 
+        email: $email 
+        password: $password
+    ) {
+        _id
+        username
+        email
+    }
 }`
 
-
 export default function Register({ navigation }) {
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [passwordVisible, setPasswordVisible] = useState(false)
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
-    // const [register, { data, loading, error }] = useMutation(REGISTER)
+    // const [register, { data, loading, error }] = useMutation(REGISTER);
 
     // const handleRegister = async () => {
     //     try {
@@ -38,32 +36,26 @@ export default function Register({ navigation }) {
     //                 email,
     //                 password,
     //             }
-    //         })
-    //         Alert.alert("Registration Success")
-    //         navigation.navigate("Login")
+    //         });
+    //         Alert.alert("Registration Successful");
+    //         navigation.navigate("Login");
     //     } catch (error) {
-    //         Alert.alert("Error", error.message)
+    //         Alert.alert("Error", error.message);
     //     }
-    // }
+    // };
 
     // if (loading) {
     //     return (
     //         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    //             <ActivityIndicator
-    //                 size="large" />
+    //             <ActivityIndicator size="large" />
     //         </View>
     //     );
     // }
 
-
     return (
         <>
-
-
             <ImageBackground source={require("../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg")} style={{ width: '100%', height: '100%' }}>
-
                 <View style={styles.container}>
-
                     <Image
                         style={styles.tinyLogo}
                         source={{
@@ -71,32 +63,51 @@ export default function Register({ navigation }) {
                         }}
                     />
 
+                    <TextInput
+                        placeholder='Username'
+                        style={styles.textInput}
+                        value={username}
+                        onChangeText={setUsername}
+                    />
 
-                    <TextInput placeholder='Username..' style={styles.textInput} />
+                    <TextInput
+                        placeholder='Email'
+                        style={styles.textInput}
+                        value={email}
+                        onChangeText={setEmail}
+                    />
 
+                    <TextInput
+                        placeholder='Password'
+                        style={styles.textInput}
+                        secureTextEntry={!passwordVisible}
+                        value={password}
+                        onChangeText={setPassword}
+                    />
 
-                    {/* <TextInput placeholder='Name..' style={styles.textInput} /> */}
-
-
-                    <TextInput placeholder='Email..' style={styles.textInput} />
-
-
-                    <TextInput placeholder='Password..' style={styles.textInput} secureTextEntry={!passwordVisible} />
 
 
                     <TouchableHighlight style={styles.button} >
-                        <Text style={{ textAlign: "center", fontWeight: "400" }}>REGISTER</Text>
+                        {/* <TouchableHighlight style={styles.button} onPress={handleRegister}> */}
+                        <LinearGradient
+                            colors={['#00FF00', '#FFFFFF']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
+                            style={styles.gradient}
+                        >
+                            <Text style={styles.buttonText}>REGISTER</Text>
+                        </LinearGradient>
                     </TouchableHighlight>
 
-                    <TouchableHighlight style={{}} onPress={() => navigation.navigate('Login')}>
-                        <Text style={{ textAlign: "center", color: "white" }}>Go to Login..</Text>
+                    <TouchableHighlight onPress={() => navigation.navigate('Login')}>
+                        <Text style={{ textAlign: "center", color: "white" }}>Go to Login</Text>
                     </TouchableHighlight>
 
                     <StatusBar style="auto" />
                 </View>
             </ImageBackground>
         </>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -122,12 +133,19 @@ const styles = StyleSheet.create({
         backgroundColor: "white"
     },
     button: {
-        padding: 15,
-        borderColor: "black",
-        backgroundColor: "#A020F0",
+        width: "100%",
         borderRadius: 10,
         marginTop: 20,
         marginBottom: 10,
-        width: "100%",
+        overflow: 'hidden',
+    },
+    gradient: {
+        padding: 15,
+        alignItems: 'center',
+    },
+    buttonText: {
+        textAlign: "center",
+        fontWeight: "400",
+        color: "black",
     }
 });

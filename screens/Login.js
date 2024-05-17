@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { ActivityIndicator, Alert, Image, ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import * as SecureStore from "expo-secure-store";
+import { LinearGradient } from 'expo-linear-gradient';
 import AuthContext from "../context/Auth";
-
 
 const LOGIN = gql`
 mutation Mutation($email: String!, $password: String!) {
@@ -12,31 +12,28 @@ mutation Mutation($email: String!, $password: String!) {
     }
 }`
 
-
 export default function Login({ navigation }) {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    // const { setIsSignedIn } = useContext(AuthContext)
-    const [passwordVisible, setPasswordVisible] = useState(false)
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    // const { setIsSignedIn } = useContext(AuthContext);
 
-    // const [login, { data, loading, errpr }] = useMutation(LOGIN, {
+    // const [login, { data, loading, error }] = useMutation(LOGIN, {
     //     onCompleted: async (data) => {
-    //         await SecureStore.setItemAsync("accessToken", data?.login.accessToken)
-    //         setIsSignedIn(true)
+    //         await SecureStore.setItemAsync("accessToken", data?.login.accessToken);
+    //         setIsSignedIn(true);
     //     }
-    // })
+    // });
 
     // const handleLogin = async () => {
     //     try {
-    //         await login({
-    //             variables: { email, password }
-    //         })
-    //         Alert.alert("Successfully Login")
-    //         navigation.navigate("PlayStory")
+    //         await login({ variables: { email, password } });
+    //         Alert.alert("Successfully Logged In");
+    //         navigation.navigate("PlayStory");
     //     } catch (error) {
-    //         Alert.alert("Error", error.message)
+    //         Alert.alert("Error", error.message);
     //     }
-    // }
+    // };
 
     // if (loading) {
     //     return (
@@ -46,15 +43,10 @@ export default function Login({ navigation }) {
     //     );
     // }
 
-
     return (
         <>
-
-
             <ImageBackground source={require("../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg")} style={{ width: '100%', height: '100%' }}>
-
                 <View style={styles.container}>
-
                     <Image
                         style={styles.tinyLogo}
                         source={{
@@ -62,28 +54,48 @@ export default function Login({ navigation }) {
                         }}
                     />
 
-                    <TextInput placeholder='Username..' style={styles.textInput} />
+                    <TextInput
+                        placeholder='Email'
+                        style={styles.textInput}
+                        value={email}
+                        onChangeText={setEmail}
+                    />
 
-                    <TextInput placeholder='Password..' style={styles.textInput} secureTextEntry={!passwordVisible} />
+                    <TextInput
+                        placeholder='Password'
+                        style={styles.textInput}
+                        secureTextEntry={!passwordVisible}
+                        value={password}
+                        onChangeText={setPassword}
+                    />
 
 
-                    <TouchableHighlight style={styles.button} >
-                        <Text style={{ textAlign: "center", fontWeight: "400" }}>LOGIN</Text>
+
+                    <TouchableHighlight style={styles.button}>
+                        {/* <TouchableHighlight style={styles.button} onPress={handleLogin}> */}
+                        <LinearGradient
+                            colors={['#00FF00', '#FFFFFF']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
+                            style={styles.gradient}
+                        >
+                            <Text style={styles.buttonText}>LOGIN</Text>
+                        </LinearGradient>
                     </TouchableHighlight>
 
-                    <TouchableHighlight style={{}} onPress={() => navigation.navigate('Register')}>
-                        <Text style={{ textAlign: "center", color: "white" }}>Go to Register..</Text>
+                    <TouchableHighlight onPress={() => navigation.navigate('Register')}>
+                        <Text style={{ textAlign: "center", color: "white" }}>Go to Register</Text>
                     </TouchableHighlight>
 
                     <TouchableHighlight style={{ margin: 20 }} onPress={() => navigation.navigate('PlayStory')}>
-                        <Text style={{ textAlign: "center", color: "white" }}>Go to PlayStory..</Text>
+                        <Text style={{ textAlign: "center", color: "white" }}>Go to PlayStory</Text>
                     </TouchableHighlight>
 
                     <StatusBar style="auto" />
                 </View>
             </ImageBackground>
         </>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -108,12 +120,19 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
     },
     button: {
-        padding: 15,
-        borderColor: "black",
-        backgroundColor: "#A020F0",
+        width: "100%",
         borderRadius: 10,
         marginTop: 20,
         marginBottom: 10,
-        width: "100%",
+        overflow: 'hidden',
+    },
+    gradient: {
+        padding: 15,
+        alignItems: 'center',
+    },
+    buttonText: {
+        textAlign: "center",
+        fontWeight: "400",
+        color: "black",
     }
 });
