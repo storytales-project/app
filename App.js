@@ -9,6 +9,7 @@ import PlayStory from './screens/PlayStory';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
 import Favorite from './screens/Favorite';
+import Generate from './screens/Generate';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,8 +29,8 @@ function TabBottom() {
                             iconName = 'home';
                             break;
                         case 'Favorite':
-                                iconName = 'heart';
-                                break;
+                            iconName = 'heart';
+                            break;
                         case 'Profile':
                             iconName = 'user';
                             break;
@@ -61,6 +62,7 @@ function App() {
                 <Stack.Screen name="PlayStory" component={TabBottom} options={{ headerShown: false }} />
                 <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
                 <Stack.Screen name="Favorite" component={Favorite} options={{ headerShown: false }} />
+                <Stack.Screen name="Generate" component={Generate} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -3,13 +3,13 @@ import Card from "../components/Card";
 import { FontAwesome } from '@expo/vector-icons';
 
 
-export default function Home() {
+export default function Home({ navigation }) {
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../assets/8.jpg')} style={styles.backgroundImage}>
                 <View style={styles.imageWrapper}>
                     <Image source={require("../assets/2.jpg")} style={styles.image} />
-                    <TouchableOpacity style={styles.cameraIconWrapper}>
+                    <TouchableOpacity style={styles.cameraIconWrapper} onPress={() => navigation.navigate('Generate')}>
                         <FontAwesome name="plus" size={34} color="white" />
                     </TouchableOpacity>
                 </View>
