@@ -18,47 +18,22 @@ export default function Test({ navigation }) {
     };
 
     return (
-        <ImageBackground source={require('../assets/background.png')} style={{ width: '100%', height: '100%' }}>
-            <View style={styles.container}>
+        <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={{ width: '100%', height: '100%' }}>
+            
+        <View style={styles.container}>
 
-                <TouchableHighlight style={styles.button} onPress={() => navigation.navigate('Register')}>
-                    <Text style={styles.buttonText}>Go to Register</Text>
-                </TouchableHighlight>
-
-                <TouchableHighlight style={[styles.button, styles.buttonMargin]} onPress={() => navigation.navigate('PlayStory')}>
-                    <Text style={styles.buttonText}>Go to PlayStory</Text>
-                </TouchableHighlight>
 
                 <View style={styles.row}>
                     <View style={styles.card}>
-                        <Image source={require('../assets/icon.png')} style={styles.cardImage} />
+                        <Image source={require('../assets/5.jpg')} style={styles.cardImage} />
                         <View style={styles.cardContent}>
                             <Text style={styles.cardTitle}>Title of the Card</Text>
-                            <Text style={styles.cardDescription}>This is a description for the card. It can be a brief overview of the content or information.</Text>
-                            <View style={styles.actions}>
-                                <TouchableHighlight onPress={handleLikePress}>
-                                    <FontAwesome name={liked ? 'heart' : 'heart-o'} size={24} color={liked ? 'red' : 'black'} />
-                                </TouchableHighlight>
-                                <TouchableHighlight onPress={handleFollowPress}>
-                                    <FontAwesome name={followed ? 'user-plus' : 'user-plus'} size={24} color={followed ? 'green' : 'black'} />
-                                </TouchableHighlight>
-                            </View>
                         </View>
                     </View>
-
                     <View style={styles.card}>
-                        <Image source={require('../assets/icon.png')} style={styles.cardImage} />
+                        <Image source={require('../assets/4.jpg')} style={styles.cardImage} />
                         <View style={styles.cardContent}>
                             <Text style={styles.cardTitle}>Title of the Card</Text>
-                            <Text style={styles.cardDescription}>This is a description for the card. It can be a brief overview of the content or information.</Text>
-                            <View style={styles.actions}>
-                                <TouchableHighlight onPress={handleLikePress}>
-                                    <FontAwesome name={liked ? 'heart' : 'heart-o'} size={24} color={liked ? 'red' : 'black'} />
-                                </TouchableHighlight>
-                                <TouchableHighlight onPress={handleFollowPress}>
-                                    <FontAwesome name={followed ? 'user-plus' : 'user-plus'} size={24} color={followed ? 'green' : 'black'} />
-                                </TouchableHighlight>
-                            </View>
                         </View>
                     </View>
                 </View>
@@ -89,12 +64,15 @@ const styles = StyleSheet.create({
         flex: 1,
         margin: 10,
         borderRadius: 10,
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 5,
+        
+        
+       
     },
     cardImage: {
         width: '100%',
@@ -109,6 +87,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 5,
+        color: 'white'
     },
     cardDescription: {
         fontSize: 12,

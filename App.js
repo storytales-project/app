@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,7 +8,7 @@ import Register from './screens/Register';
 import PlayStory from './screens/PlayStory';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
-import Test from './screens/Test';
+import Favorite from './screens/Favorite';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -18,25 +17,36 @@ function TabBottom() {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused, color, size }) => {
+                tabBarIcon: ({ color, size }) => {
                     let iconName;
 
-                    if (route.name === 'PlayStory') {
-                        iconName = focused ? 'book' : 'book-o';
-                    } else if (route.name === 'Home') {
-                        iconName = focused ? 'home' : 'home-o';
-                    } else if (route.name === 'Profile') {
-                        iconName = focused ? 'user' : 'user-o';
+                    switch (route.name) {
+                        case 'PlayStory':
+                            iconName = 'book';
+                            break;
+                        case 'Home':
+                            iconName = 'home';
+                            break;
+                        case 'Favorite':
+                                iconName = 'heart';
+                                break;
+                        case 'Profile':
+                            iconName = 'user';
+                            break;
+                        default:
+                            iconName = 'circle';
+                            break;
                     }
 
                     return <FontAwesome name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: 'tomato',
+                tabBarActiveTintColor: 'black',
                 tabBarInactiveTintColor: 'gray',
             })}
         >
             <Tab.Screen name="PlayStory" component={PlayStory} options={{ headerShown: false }} />
             <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            <Tab.Screen name="Favorite" component={Favorite} options={{ headerShown: false }} />
             <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
         </Tab.Navigator>
     );
@@ -50,7 +60,7 @@ function App() {
                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
                 <Stack.Screen name="PlayStory" component={TabBottom} options={{ headerShown: false }} />
                 <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-                <Stack.Screen name="Test" component={Test} options={{ headerShown: false }} />
+                <Stack.Screen name="Favorite" component={Favorite} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
