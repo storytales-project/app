@@ -10,7 +10,7 @@ export default function Profile({ navigation }) {
 
     return (
         <>
-            <ImageBackground source={require('../assets/home.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={styles.backgroundImage}>
                 <View style={styles.container}>
                     <View style={styles.profileContainer}>
                         <View style={styles.imageWrapper}>

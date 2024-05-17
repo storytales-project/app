@@ -8,7 +8,7 @@ import CircleButton from '../components/CircleButton';
 import IconButton from '../components/IconButton';
 import Button from '../components/Button';
 
-const PlaceholderImage = require('../assets/background-image.png');
+const PlaceholderImage = require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg');
 export default function PlayStory({ navigation }) {
     const [showAppOptions, setShowAppOptions] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
