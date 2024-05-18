@@ -52,7 +52,7 @@ export default function PlayStory({ navigation }) {
                 </View>
             ) : (
                 <View style={styles.footerContainer}>
-                    <Button theme="primary" label="Choose a photo" onPress={pickImageAsync} />
+                    <Button theme="primary" label="Choose a phoooto" onPress={pickImageAsync} />
                     <Button
                         label="Use this photo"
                         onPress={() => setShowAppOptions(true)}

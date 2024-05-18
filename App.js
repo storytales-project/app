@@ -10,6 +10,7 @@ import Home from './screens/Home';
 import Profile from './screens/Profile';
 import Favorite from './screens/Favorite';
 import Generate from './screens/Generate';
+import Payment from './screens/Payment';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -49,6 +50,9 @@ function TabBottom() {
             <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
             <Tab.Screen name="Favorite" component={Favorite} options={{ headerShown: false }} />
             <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+            
+
+
         </Tab.Navigator>
     );
 }
@@ -63,6 +67,9 @@ function App() {
                 <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
                 <Stack.Screen name="Favorite" component={Favorite} options={{ headerShown: false }} />
                 <Stack.Screen name="Generate" component={Generate} options={{ headerShown: false }} />
+                <Stack.Screen name="Payment" component={Payment} options={{ headerShown: false }} />
+
+                
             </Stack.Navigator>
         </NavigationContainer>
     );
