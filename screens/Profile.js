@@ -6,6 +6,15 @@ export default function Profile({ navigation }) {
     const profile = {
         username: "Toto Toharudin",
         email: "totosdnfkkkkkkkkkkk.com",
+        status: "premium"
+    };
+
+    const handleLogout = () => {
+        navigation.navigate('Login');
+    };
+
+    const handlePayment = () => {
+        navigation.navigate('Payment');
     };
 
     return (
@@ -20,10 +29,22 @@ export default function Profile({ navigation }) {
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.profileName}>{profile.username}</Text>
-                        <Text style={styles.profileLabel}>Username</Text>
-                        <Text style={styles.profileDetail}>{profile.username}</Text>
+                        <Text style={styles.status1}>Status</Text>
+
+                        <Text style={styles.status}>{profile.status}</Text>
+                        
                         <Text style={styles.profileLabel}>Email</Text>
                         <Text style={styles.profileDetail}>{profile.email}</Text>
+                    </View>
+                    <View style={styles.cartContainer}>
+                        <TouchableOpacity style={styles.cartButton} onPress={handlePayment}>
+                            <FontAwesome name="credit-card" size={24} color="white" />
+                            <Text style={styles.cartButtonText}>Payment</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.cartButton} onPress={handleLogout}>
+                            <FontAwesome name="sign-out" size={24} color="white" />
+                            <Text style={styles.cartButtonText}>Logout</Text>
+                        </TouchableOpacity>
                     </View>
                     <StatusBar style="auto" />
                 </View>
@@ -78,22 +99,38 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         marginTop: 10,
+        fontWeight: "bold"
     },
     profileDetail: {
         color: 'white',
         fontSize: 20,
         fontWeight: '300',
     },
-    button: {
-        padding: 15,
-        backgroundColor: '#A020F0',
-        borderRadius: 10,
+    cartContainer: {
+        flexDirection: 'row',
         marginTop: 20,
-        width: 200,
-        alignItems: 'center',
     },
-    buttonText: {
+    cartButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 15,
+        borderRadius: 10,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        marginHorizontal: 10,
+    },
+    cartButtonText: {
         color: 'white',
         fontSize: 16,
+        marginLeft: 10,
+    },
+    status: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: '300',
+    },
+    status1: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
