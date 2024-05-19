@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ActivityIndicator, Alert, Image, ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, Image, ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
 import { gql, useMutation } from "@apollo/client";
 import * as SecureStore from "expo-secure-store";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,6 +16,7 @@ export default function Login({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
+
     // const { setIsSignedIn } = useContext(AuthContext);
 
     // const [login, { data, loading, error }] = useMutation(LOGIN, {
@@ -87,7 +88,7 @@ export default function Login({ navigation }) {
                         <Text style={{ textAlign: "center", color: "white" }}>Go to Register</Text>
                     </TouchableHighlight>
 
-                    <TouchableHighlight style={{ margin: 20 }} onPress={() => navigation.navigate('PlayStory')}>
+                    <TouchableHighlight style={{ margin: 20 }} onPress={() => navigation.navigate('TabBottom', { screen: 'PlayStory' })}>
                         <Text style={{ textAlign: "center", color: "white" }}>Go to PlayStory</Text>
                     </TouchableHighlight>
 
