@@ -1,11 +1,12 @@
+import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { AntDesign } from '@expo/vector-icons';
 
-export default function CircleButton({ onPress }) {
+export default function CircleButton({ onPress, playState }) {
     return (
         <View style={styles.circleButtonContainer}>
             <Pressable style={styles.circleButton} onPress={onPress}>
-                <MaterialIcons name="add" size={38} color="#25292e" />
+                <AntDesign name={playState === 'playing' ? "pause" : "caretright"} size={24} color="black" />
             </Pressable>
         </View>
     );
