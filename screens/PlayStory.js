@@ -8,7 +8,7 @@ import IconButton from '../components/IconButton';
 import ImageViewer from '../components/ImageViewer';
 
 const PlayStory = ({ navigation }) => {
-    const [playState, setPlayState] = useState('paused'); // playing, paused
+    const [playState, setPlayState] = useState('paused');
     const [playSeconds, setPlaySeconds] = useState(0);
     const [duration, setDuration] = useState(0);
     const [sound, setSound] = useState(null);
