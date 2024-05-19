@@ -61,11 +61,12 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     label: {
-        color: "white",
+        color: "yellow",
         fontSize: 20,
         marginBottom: 10,
         marginTop: 20,
-        textAlign: "center",
+        // textAlign: "center",
+        textAlign: "justify",
     },
     textInput: {
         width: "100%",

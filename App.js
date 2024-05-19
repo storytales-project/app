@@ -38,7 +38,7 @@ function TabBottom() {
                             iconName = 'user';
                             break;
                         default:
-                            iconName = 'circle';
+                            iconName = 'plus';
                             break;
                     }
 
@@ -50,6 +50,7 @@ function TabBottom() {
         >
             <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />
             <Tab.Screen name="PlayStory" component={PlayStory} options={{ headerShown: false }} />
+            <Tab.Screen name="Generate" component={Generate} options={{ headerShown: false }} />
             <Tab.Screen name="Favorite" component={Favorite} options={{ headerShown: false }} />
             <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
             <Tab.Screen name="Chapter" component={Chapter} options={{ headerShown: false }} />
