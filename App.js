@@ -8,9 +8,11 @@ import Register from './screens/Register';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
 import Favorite from './screens/Favorite';
-import PlayStory from './screens/PlayStory'; // Import PlayStory screen
+import PlayStory from './screens/PlayStory';
 import Generate from './screens/Generate';
 import Payment from './screens/Payment';
+import Chapter from './screens/Chapter';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -50,6 +52,7 @@ function TabBottom() {
             <Tab.Screen name="PlayStory" component={PlayStory} options={{ headerShown: false }} />
             <Tab.Screen name="Favorite" component={Favorite} options={{ headerShown: false }} />
             <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+            <Tab.Screen name="Chapter" component={Chapter} options={{ headerShown: false }} />
         </Tab.Navigator>
     );
 }
