@@ -4,20 +4,13 @@ import { ActivityIndicator, Alert, Image, ImageBackground, StatusBar, StyleSheet
 import { LinearGradient } from 'expo-linear-gradient';
 
 const REGISTER = gql`
-mutation Register(
-    $username: String!
-    $email: String!
-    $password: String!
-) {
-    register(
-        username: $username 
-        email: $email 
-        password: $password
-    ) {
-        _id
-        username
-        email
-    }
+mutation AddUser($newUser: NewUser) {
+  addUser(newUser: $newUser) {
+    _id
+    credit
+    email
+    username
+  }
 }`
 
 export default function Register({ navigation }) {
@@ -26,31 +19,25 @@ export default function Register({ navigation }) {
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    // const [register, { data, loading, error }] = useMutation(REGISTER);
+    const [register, { data, loading, error }] = useMutation(REGISTER);
 
-    // const handleRegister = async () => {
-    //     try {
-    //         await register({
-    //             variables: {
-    //                 username,
-    //                 email,
-    //                 password,
-    //             }
-    //         });
-    //         Alert.alert("Registration Successful");
-    //         navigation.navigate("Login");
-    //     } catch (error) {
-    //         Alert.alert("Error", error.message);
-    //     }
-    // };
+    const handleRegister = async () => {
+        try {
+            await register({ variables: { newUser: { username, email, password } } });
+            Alert.alert("Registration Successful");
+            navigation.navigate("Login");
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        }
+    };
 
-    // if (loading) {
-    //     return (
-    //         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    //             <ActivityIndicator size="large" />
-    //         </View>
-    //     );
-    // }
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
 
     return (
         <>
@@ -87,8 +74,7 @@ export default function Register({ navigation }) {
 
 
 
-                    <TouchableHighlight style={styles.button} >
-                        {/* <TouchableHighlight style={styles.button} onPress={handleRegister}> */}
+                    <TouchableHighlight style={styles.button} onPress={handleRegister}>
                         <LinearGradient
                             colors={['#00FF00', '#FFFFFF']}
                             start={{ x: 0, y: 0 }}

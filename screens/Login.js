@@ -6,43 +6,44 @@ import { LinearGradient } from 'expo-linear-gradient';
 import AuthContext from "../context/Auth";
 
 const LOGIN = gql`
-mutation Mutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-        accessToken
-    }
-}`
+mutation LoginUser($login: Login) {
+  loginUser(login: $login) {
+    access_token
+  }
+}
+`;
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    // const { setIsSignedIn } = useContext(AuthContext);
+    const { setIsSignedIn } = useContext(AuthContext);
 
-    // const [login, { data, loading, error }] = useMutation(LOGIN, {
-    //     onCompleted: async (data) => {
-    //         await SecureStore.setItemAsync("accessToken", data?.login.accessToken);
-    //         setIsSignedIn(true);
-    //     }
-    // });
+    const [login, { data, loading, error }] = useMutation(LOGIN, {
+        onCompleted: async (data) => {
+            await SecureStore.setItemAsync("access_token", data?.loginUser.access_token);
+            setIsSignedIn(true);
+        }
+    });
 
-    // const handleLogin = async () => {
-    //     try {
-    //         await login({ variables: { email, password } });
-    //         Alert.alert("Successfully Logged In");
-    //         navigation.navigate("PlayStory");
-    //     } catch (error) {
-    //         Alert.alert("Error", error.message);
-    //     }
-    // };
+    const handleLogin = async () => {
+        try {
+            await login({ variables: { login: { email, password } } });
+            Alert.alert("Successfully Logged In");
+            navigation.navigate('TabBottom', { screen: 'Home' });
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        }
+    };
 
-    // if (loading) {
-    //     return (
-    //         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    //             <ActivityIndicator size="large" />
-    //         </View>
-    //     );
-    // }
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
 
     return (
         <>
@@ -70,10 +71,7 @@ export default function Login({ navigation }) {
                         onChangeText={setPassword}
                     />
 
-
-
-                    <TouchableHighlight style={styles.button}>
-                        {/* <TouchableHighlight style={styles.button} onPress={handleLogin}> */}
+                    <TouchableHighlight style={styles.button} onPress={handleLogin}>
                         <LinearGradient
                             colors={['#00FF00', '#FFFFFF']}
                             start={{ x: 0, y: 0 }}

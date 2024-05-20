@@ -15,12 +15,7 @@ export default function Home({ navigation }) {
                 </View>
                 <Text style={styles.storiesText}>Recent stories :</Text>
                 <ScrollView horizontal={true} style={styles.scrollView}>
-                    {/* <View style={styles.cardContainer}>
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                    </View> */}
+
                     <View style={styles.row}>
                         <View style={styles.card}>
                             <Image source={require('../assets/5.jpg')} style={styles.cardImage} />
