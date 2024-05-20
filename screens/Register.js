@@ -56,12 +56,12 @@ export default function Register({ navigation }) {
         <>
             <ImageBackground source={require("../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg")} style={{ width: '100%', height: '100%' }}>
                 <View style={styles.container}>
-                    <Image
-                        style={styles.tinyLogo}
-                        source={{
-                            uri: "https://assets.tumblr.com/images/logo_page/1x/wordmark-white.png?_v=8cec4be4e8da5d4c0d64ca5c0643f655"
-                        }}
-                    />
+                <Image
+                style={styles.tinyLogo}
+                source={
+                   require("../assets/1-removebg-preview.png")
+                }
+            />
 
                     <TextInput
                         placeholder='Username'
@@ -119,8 +119,10 @@ const styles = StyleSheet.create({
         color: "white"
     },
     tinyLogo: {
-        width: 350,
-        height: 200,
+        width: 100,
+        height: 100,
+        marginBottom: 20,
+        marginTop: 50
     },
     textInput: {
         width: "100%",

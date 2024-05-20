@@ -37,6 +37,9 @@ function TabBottom() {
                         case 'Profile':
                             iconName = 'user';
                             break;
+                        case 'Chapter':
+                            iconName = 'file-text';
+                            break;
                         default:
                             iconName = 'circle';
                             break;
