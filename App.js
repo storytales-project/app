@@ -56,7 +56,7 @@ function TabBottom() {
             <Tab.Screen name="Generate" component={Generate} options={{ headerShown: false }} />
             <Tab.Screen name="Favorite" component={Favorite} options={{ headerShown: false }} />
             <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-            <Tab.Screen name="Chapter" component={Chapter} options={{ headerShown: false }} />
+
         </Tab.Navigator>
     );
 }
@@ -81,12 +81,13 @@ export default function App() {
                             <>
                                 <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
                                 <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-                                <Stack.Screen name="TabBottom" component={TabBottom} options={{ headerShown: false }} />
                             </>
                         ) : (
                             <>
+                                <Stack.Screen name="TabBottom" component={TabBottom} options={{ headerShown: false }} />
                                 <Stack.Screen name="Generate" component={Generate} options={{ headerShown: false }} />
                                 <Stack.Screen name="Payment" component={Payment} options={{ headerShown: false }} />
+                                <Stack.Screen name="Chapter" component={Chapter} options={{ headerShown: false }} />
                             </>
                         )}
                     </Stack.Navigator>

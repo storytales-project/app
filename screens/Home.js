@@ -9,23 +9,6 @@ query GetPublicStories {
         _id
         title
         image
-      pages {
-            chapter
-            content
-            audio
-            choices
-        }
-        character
-        mood
-      likes {
-            userId
-            username
-            createdAt
-            updatedAt
-        }
-        public
-        theme
-        userId
     }
 }
 `
@@ -49,11 +32,14 @@ export default function Home({ navigation }) {
                     <View style={styles.row}>
 
                         {data?.getPublicStories.map((item, index) => (
+
                             <View style={styles.card} key={index}>
-                                <Image source={{ uri: item.image }} style={styles.cardImage} />
-                                <View style={styles.cardContent}>
-                                    <Text style={styles.cardTitle}>{item.title}</Text>
-                                </View>
+                                <TouchableOpacity onPress={() => navigation.navigate("Chapter", { id: item._id })}>
+                                    <Image source={{ uri: item.image }} style={styles.cardImage} />
+                                    <View style={styles.cardContent}>
+                                        <Text style={styles.cardTitle}>{item.title}</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         ))}
 
