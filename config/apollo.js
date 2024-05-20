@@ -3,7 +3,7 @@ import { setContext } from '@apollo/client/link/context';
 import * as SecureStore from 'expo-secure-store';
 
 const httpLink = createHttpLink({
-    uri: 'https://tumblr.tatang.online/',
+    uri: 'https://finalproject.daffabaihaqi.online/graphql',
 });
 
 const authLink = setContext(async (_, { headers }) => {
