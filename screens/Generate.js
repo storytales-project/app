@@ -1,11 +1,67 @@
-import { useState } from "react";
-import { ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
+import React, { useState } from "react";
+import { ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableHighlight, View, Alert, ActivityIndicator } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
+import { gql, useMutation } from "@apollo/client";
+import RNPickerSelect from 'react-native-picker-select';
+
+const GENERATE = gql`
+mutation AddStory($newStory: NewStory!) {
+    addStory(newStory: $newStory) {
+        _id
+        userId
+    }
+}
+`;
 
 export default function Generate({ navigation }) {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [character, setCharacter] = useState("");
+    const [theme, setTheme] = useState("");
+    const [mood, setMood] = useState("");
+    const [title, setTitle] = useState("");
+    const [language, setLanguage] = useState("");
+
+    const [generate, { loading, error }] = useMutation(GENERATE);
+
+    const placeholderMood = {
+        label: 'Select a Mood...',
+        value: null,
+    };
+
+    const optionsMood = [
+        { label: 'Fun', value: 'Fun' },
+        { label: 'Happy', value: 'Happy' },
+        { label: 'Thrilling', value: 'Thrilling' },
+        { label: 'Sad', value: 'Sad' },
+    ];
+
+    const placeholderLanguage = {
+        label: 'Select a Language...',
+        value: null,
+    };
+
+    const optionsLanguage = [
+        { label: 'Indonesian', value: 'Indonesian' },
+        { label: 'English', value: 'English' },
+        { label: 'Japanese', value: 'Japanese' },
+        { label: 'Korean', value: 'Korean' },
+    ];
+
+    const handleGenerate = async () => {
+        try {
+            await generate({ variables: { newStory: { character, title, mood, theme, language } } });
+            navigation.navigate('Chapter');
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        }
+    };
+
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator size="large" />
+            </View>
+        );
+    }
 
     return (
         <ImageBackground source={require("../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg")} style={styles.backgroundImage}>
@@ -14,24 +70,40 @@ export default function Generate({ navigation }) {
                 <TextInput
                     placeholder="Story Theme"
                     style={styles.textInput}
-                    value={username}
-                    onChangeText={setUsername}
+                    value={theme}
+                    onChangeText={setTheme}
                 />
-                <Text style={styles.label}>What's the mood of the story?</Text>
+
                 <TextInput
-                    placeholder="Mood"
+                    placeholder="Main Character"
                     style={styles.textInput}
-                    value={email}
-                    onChangeText={setEmail}
+                    value={character}
+                    onChangeText={setCharacter}
                 />
-                <Text style={styles.label}>What's the name of the main story character?</Text>
+
                 <TextInput
-                    placeholder="Main character"
+                    placeholder="Story Title"
                     style={styles.textInput}
-                    value={password}
-                    onChangeText={setPassword}
+                    value={title}
+                    onChangeText={setTitle}
                 />
-                <TouchableHighlight style={styles.button}>
+
+                <RNPickerSelect
+                    style={pickerSelectStyles}
+                    placeholder={placeholderMood}
+                    items={optionsMood}
+                    onValueChange={setMood}
+                    value={mood}
+                />
+
+                <RNPickerSelect
+                    style={pickerSelectStyles}
+                    placeholder={placeholderLanguage}
+                    items={optionsLanguage}
+                    onValueChange={setLanguage}
+                    value={language}
+                />
+                <TouchableHighlight style={styles.button} onPress={handleGenerate}>
                     <LinearGradient
                         colors={['#00FF00', '#FFFFFF']}
                         start={{ x: 0, y: 0 }}
@@ -63,10 +135,9 @@ const styles = StyleSheet.create({
     label: {
         color: "yellow",
         fontSize: 20,
-        marginBottom: 10,
+        marginBottom: 30,
         marginTop: 20,
-        // textAlign: "center",
-        textAlign: "justify",
+        textAlign: "center",
     },
     textInput: {
         width: "100%",
@@ -101,3 +172,25 @@ const styles = StyleSheet.create({
     },
 });
 
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        width: "100%",
+        borderColor: "white",
+        margin: 10,
+        padding: 15,
+        borderWidth: 1,
+        borderRadius: 30,
+        backgroundColor: "white",
+        color: "black",
+    },
+    inputAndroid: {
+        width: "97%",
+        borderColor: "white",
+        margin: 10,
+        padding: 15,
+        borderWidth: 1,
+        borderRadius: 30,
+        backgroundColor: "white",
+        color: "black",
+    },
+});
