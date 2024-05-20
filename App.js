@@ -90,7 +90,7 @@ export default function App() {
                                 <Stack.Screen name="TabBottom" component={TabBottom} options={{ headerShown: false }} />
                                 <Stack.Screen name="Generate" component={Generate} options={{ headerShown: false }} />
                                 <Stack.Screen name="Payment" component={Payment} options={{ headerShown: false }} />
-                                <Stack.Screen name="Chapter" component={Chapter} options={{ headerShown: false }} />
+                                <Stack.Screen name="Chapter" component={Chapter} options={{ headerShown: true }} />
                             </>
                         )}
                     </Stack.Navigator>

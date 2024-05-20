@@ -31,8 +31,8 @@ export default function Login({ navigation }) {
         try {
             await login({ variables: { login: { username, password } } });
             Alert.alert("Successfully Logged In");
-            // navigation.navigate('TabBottom', { screen: 'Home' });
-            navigation.navigate('Home');
+            navigation.navigate('TabBottom', { screen: 'Home' });
+            // navigation.navigate('Home');
         } catch (error) {
             Alert.alert("Error", error.message);
         }
