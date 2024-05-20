@@ -12,7 +12,10 @@ import PlayStory from './screens/PlayStory';
 import Generate from './screens/Generate';
 import Payment from './screens/Payment';
 import Chapter from './screens/Chapter';
-
+import client from './config/apollo';
+import { ApolloProvider } from '@apollo/client';
+import AuthContext from './context/Auth';
+import * as SecureStore from 'expo-secure-store';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -56,23 +59,43 @@ function TabBottom() {
             <Tab.Screen name="Generate" component={Generate} options={{ headerShown: false }} />
             <Tab.Screen name="Favorite" component={Favorite} options={{ headerShown: false }} />
             <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-            <Tab.Screen name="Chapter" component={Chapter} options={{ headerShown: false }} />
+
         </Tab.Navigator>
     );
 }
 
-function App() {
+export default function App() {
+    const [isSignedIn, setIsSignedIn] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkToken = async () => {
+            const token = await SecureStore.getItemAsync('access_token');
+            setIsSignedIn(!!token);
+        };
+        checkToken();
+    }, []);
+
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login">
-                <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
-                <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-                <Stack.Screen name="TabBottom" component={TabBottom} options={{ headerShown: false }} />
-                <Stack.Screen name="Generate" component={Generate} options={{ headerShown: false }} />
-                <Stack.Screen name="Payment" component={Payment} options={{ headerShown: false }} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <ApolloProvider client={client}>
+            <AuthContext.Provider value={{ isSignedIn, setIsSignedIn }}>
+                <NavigationContainer>
+                    <Stack.Navigator initialRouteName="Login">
+                        {!isSignedIn ? (
+                            <>
+                                <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+                                <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+                            </>
+                        ) : (
+                            <>
+                                <Stack.Screen name="TabBottom" component={TabBottom} options={{ headerShown: false }} />
+                                <Stack.Screen name="Generate" component={Generate} options={{ headerShown: false }} />
+                                <Stack.Screen name="Payment" component={Payment} options={{ headerShown: false }} />
+                                <Stack.Screen name="Chapter" component={Chapter} options={{ headerShown: false }} />
+                            </>
+                        )}
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </AuthContext.Provider>
+        </ApolloProvider>
     );
 }
-
-export default App;

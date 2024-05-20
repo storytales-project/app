@@ -1,0 +1,39 @@
+{
+    "data": {
+        "getPublicStories": [
+            {
+                "_id": "66488c89d9d7c772572d466b",
+                "title": "Menjelajahi dunia robot raksasa",
+                "image": "http://res.cloudinary.com/dp9n1icsc/image/upload/v1716030600/rhxfuehjvxu9phw70r7h.png",
+                "pages": [
+                    {
+                        "chapter": "Malam Pertemuan Ajaib",
+                        "content": "Dikisahkan di sebuah dunia bernama Fun Dunia Robot Raksasa, Daffa, seorang anak kecil yang berusia tujuh tahun, memiliki mimpi yang besar. Suatu malam, saat bulan menggantung penuh di langit yang berbintang, Daffa mendapatkan sebuah kotak misterius di depan pintu rumahnya. Saat dibuka, kotak itu memancarkan cahaya biru cerah dan tiba-tiba muncul sebuah robot raksasa yang bisa berbicara! Robot itu diberi nama Leo dan dia mengajak Daffa untuk bertualang ke berbagai penjuru Fun Dunia Robot Raksasa demi mencari sumber tenaga supaya Leo bisa terus beroperasi.",
+                        "audio": "http://res.cloudinary.com/dp9n1icsc/video/upload/v1716030565/sikhtultt6s4y44dgqhn.mp3",
+                        "choices": [
+                            "Daffa dan Leo memulai petualangan ke Gunung Gadget, tempat dikabarkan terdapat kristal energi yang bisa menyimpan kekuatan tak terbatas.",
+                            "Daffa memutuskan untuk mencari Pohon Umur, pohon tua yang bisa berbicara dan mengerti sejarah Fun Dunia Robot Raksasa.",
+                            "Daffa mengajak Leo kembali ke dalam kota untuk mencari Profesor Q, sang ilmuwan yang dianggap sebagai orang paling tahu tentang robot."
+                        ]
+                    },
+                    {
+                        "chapter": "Perjalanan Menuju Gunung Gadget",
+                        "content": "Setelah memutuskan destinasi mereka, Daffa dan Leo segera bersiap untuk perjalanan ke Gunung Gadget. Mereka membawa bekal dan peralatan yang mungkin diperlukan selama di perjalanan. Gunung Gadget terkenal dengan jalur mendaki yang penuh dengan teka-teki teknologi dan rintangan mekanis yang harus diatasi dengan kecerdasan dan keberanian. Daffa dan Leo menghadapi berbagai halangan, mulai dari jembatan yang terputus hingga robot penjaga yang sudah tua dan rusak yang masih menjalankan tugasnya. Mereka berdua bekerja sama, Daffa dengan kecerdasannya dan Leo dengan kekuatan serta kemampuan teknisnya. Setelah berhari-hari dalam perjalanan, akhirnya mereka tiba di puncak Gunung Gadget. Di sana, mereka menemukan kristal energi yang mereka cari, bersinar terang dan tampak menunggu mereka. Namun, saat mereka mendekati kristal, sebuah sosok misterius muncul dari bayang-bayang...",
+                        "audio": "http://res.cloudinary.com/dp9n1icsc/video/upload/v1716036373/b99bskqjcknblymlequs.mp3",
+                        "choices": [
+                            "Daffa dan Leo mencoba berbicara dengan sosok misterius tersebut untuk mengetahui apakah ia teman atau musuh.",
+                            "Daffa dan Leo memutuskan untuk mengambil kristal energi secepat mungkin dan melarikan diri dari Gunung Gadget.",
+                            "Daffa dan Leo mempersiapkan diri untuk pertarungan, mengantisipasi bahwa sosok misterius itu mungkin mengancam mereka."
+                        ]
+                    }
+                ],
+                "character": "Daffa",
+                "mood": "Fun",
+                "likes": [],
+                "public": true,
+                "theme": "Dunia Robot Raksasa",
+                "userId": "6645cc893dd9a6f0a21e51bb"
+            }
+        ]
+    }
+}

@@ -14,7 +14,7 @@ mutation LoginUser($login: Login) {
 `;
 
 export default function Login({ navigation }) {
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -29,9 +29,10 @@ export default function Login({ navigation }) {
 
     const handleLogin = async () => {
         try {
-            await login({ variables: { login: { email, password } } });
+            await login({ variables: { login: { username, password } } });
             Alert.alert("Successfully Logged In");
-            navigation.navigate('TabBottom', { screen: 'Home' });
+            // navigation.navigate('TabBottom', { screen: 'Home' });
+            navigation.navigate('Home');
         } catch (error) {
             Alert.alert("Error", error.message);
         }
@@ -57,10 +58,10 @@ export default function Login({ navigation }) {
                     />
 
                     <TextInput
-                        placeholder='Email'
+                        placeholder='Username'
                         style={styles.textInput}
-                        value={email}
-                        onChangeText={setEmail}
+                        value={username}
+                        onChangeText={setUsername}
                     />
 
                     <TextInput

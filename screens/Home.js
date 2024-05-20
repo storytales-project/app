@@ -1,9 +1,22 @@
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Card from "../components/Card";
 import { FontAwesome } from '@expo/vector-icons';
+import { gql, useQuery } from "@apollo/client";
 
+const STORIES = gql`
+query GetPublicStories {
+    getPublicStories {
+        _id
+        title
+        image
+    }
+}
+`
 
 export default function Home({ navigation }) {
+
+    const { loading, data, error } = useQuery(STORIES);
+
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../assets/8.jpg')} style={styles.backgroundImage}>
@@ -17,24 +30,19 @@ export default function Home({ navigation }) {
                 <ScrollView horizontal={true} style={styles.scrollView}>
 
                     <View style={styles.row}>
-                        <View style={styles.card}>
-                            <Image source={require('../assets/5.jpg')} style={styles.cardImage} />
-                            <View style={styles.cardContent}>
-                                <Text style={styles.cardTitle}>Title of the Card</Text>
+
+                        {data?.getPublicStories.map((item, index) => (
+
+                            <View style={styles.card} key={index}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Chapter", { id: item._id })}>
+                                    <Image source={{ uri: item.image }} style={styles.cardImage} />
+                                    <View style={styles.cardContent}>
+                                        <Text style={styles.cardTitle}>{item.title}</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
-                        </View>
-                        <View style={styles.card}>
-                            <Image source={require('../assets/4.jpg')} style={styles.cardImage} />
-                            <View style={styles.cardContent}>
-                                <Text style={styles.cardTitle}>Title of the Card</Text>
-                            </View>
-                        </View>
-                        <View style={styles.card}>
-                            <Image source={require('../assets/4.jpg')} style={styles.cardImage} />
-                            <View style={styles.cardContent}>
-                                <Text style={styles.cardTitle}>Title of the Card</Text>
-                            </View>
-                        </View>
+                        ))}
+
                     </View>
 
                 </ScrollView>
@@ -93,7 +101,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 5,
-        color: 'white'
+        color: 'white',
     },
     cardDescription: {
         fontSize: 12,
