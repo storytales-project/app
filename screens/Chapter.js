@@ -41,13 +41,7 @@ export default function Chapter({ route, navigation }) {
 
     const story = data?.getStoryById;
 
-    const handleLikePress = () => {
-        setLiked(!liked);
-    };
 
-    const handleFollowPress = () => {
-        setFollowed(!followed);
-    };
 
     return (
         <ImageBackground
