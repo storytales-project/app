@@ -39,9 +39,7 @@ export default function Chapter({ route, navigation }) {
         },
     });
 
-
     const story = data?.getStoryById;
-
 
     const handleLikePress = () => {
         setLiked(!liked);
@@ -61,12 +59,12 @@ export default function Chapter({ route, navigation }) {
                     style={{ justifyContent: "center", alignItems: "center" }}
                 >
                     <Image
-                        source={{ uri: story.image }}
+                        source={{ uri: story?.image }}
                         style={styles.storyImage}
                     />
                 </View>
                 <View>
-                    <Text style={styles.titleText}>{story.title}</Text>
+                    <Text style={styles.titleText}>{story?.title}</Text>
                     <Text style={{ color: "white", textAlign: "center" }}>
                         Ceritanya ini deskripsi dari ceritanta, yang panjangnya
                         sampe 2 kalimat gitu
@@ -78,7 +76,7 @@ export default function Chapter({ route, navigation }) {
                     {story?.pages.map((page, idx) => {
                         return (
                             <View style={styles.card} key={idx}>
-                                <TouchableOpacity onPress={() => navigation.navigate("PlayStory")}>
+                                <TouchableOpacity onPress={() => navigation.navigate("PlayStory", { page: page })}>
                                     <View style={styles.cardContent}>
                                         <View
                                             style={{
