@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 
-export default function Chapter({ navigation }) {
+export default function Chapter({ route, navigation }) {
     const [liked, setLiked] = useState(false);
     const [followed, setFollowed] = useState(false);
 
@@ -16,7 +16,16 @@ export default function Chapter({ navigation }) {
     };
 
     return (
-        <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={{ flex: 1 }}>
+        <ImageBackground source={require('../assets/7.jpg')} style={{ flex: 1, display: 'flex' }}>
+            <View style={styles.infoContainer}>
+                <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+                    <Image source={require('../assets/4.jpg')} style={styles.storyImage}/>
+                </View>
+                <View>
+                    <Text style={styles.titleText}>Ini Ceritanya Judul Ceritanya</Text>
+                    <Text style={{color : 'white', textAlign : 'center'}}>Ceritanya ini deskripsi dari ceritanta, yang panjangnya sampe 2 kalimat gitu</Text>
+                </View>
+            </View>
             <View style={styles.container}>
                 <View style={styles.col}>
                     <View style={styles.card}>
@@ -37,18 +46,6 @@ export default function Chapter({ navigation }) {
                             <AntDesign name="caretright" size={24} color="white" />
                         </View>
                     </View>
-                    <View style={styles.card}>
-                        <View style={styles.cardContent}>
-                            <Text style={styles.cardTitle}>Chapter 4</Text>
-                            <AntDesign name="caretright" size={24} color="white" />
-                        </View>
-                    </View>
-                    <View style={styles.card}>
-                        <View style={styles.cardContent}>
-                            <Text style={styles.cardTitle}>Chapter 5</Text>
-                            <AntDesign name="caretright" size={24} color="white" />
-                        </View>
-                    </View>
                 </View>
             </View>
             <StatusBar style="auto" />
@@ -57,6 +54,22 @@ export default function Chapter({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    infoContainer : {
+        display : 'flex',
+        flexDirection : 'column',
+        marginTop: 40
+    },
+    storyImage : {
+        width: '80%',
+        height : 235,
+        borderRadius : 20
+    },
+    titleText : {
+        color : 'white',
+        textAlign : 'center',
+        fontSize : 20,
+        fontWeight : '800',
+    },  
     container: {
         flex: 1,
         padding: 20,
@@ -80,6 +93,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         height: 80,
         marginBottom: 10,
+        display: 'flex'
     },
     cardContent: {
         flexDirection: 'row',
