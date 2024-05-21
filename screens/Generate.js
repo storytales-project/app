@@ -88,21 +88,26 @@ export default function Generate({ navigation }) {
                     onChangeText={setTitle}
                 />
 
-                <RNPickerSelect
-                    style={pickerSelectStyles}
-                    placeholder={placeholderMood}
-                    items={optionsMood}
-                    onValueChange={setMood}
-                    value={mood}
-                />
+                <View style={styles.pickerContainer}>
+                    <RNPickerSelect
+                        style={pickerSelectStyles}
+                        placeholder={placeholderMood}
+                        items={optionsMood}
+                        onValueChange={setMood}
+                        value={mood}
+                    />
+                </View>
 
-                <RNPickerSelect
-                    style={pickerSelectStyles}
-                    placeholder={placeholderLanguage}
-                    items={optionsLanguage}
-                    onValueChange={setLanguage}
-                    value={language}
-                />
+                <View style={styles.pickerContainer}>
+                    <RNPickerSelect
+                        style={pickerSelectStyles}
+                        placeholder={placeholderLanguage}
+                        items={optionsLanguage}
+                        onValueChange={setLanguage}
+                        value={language}
+                    />
+                </View>
+                
                 <TouchableHighlight style={styles.button} onPress={handleGenerate}>
                     <LinearGradient
                         colors={['#00FF00', '#FFFFFF']}
@@ -142,12 +147,19 @@ const styles = StyleSheet.create({
     textInput: {
         width: "100%",
         borderColor: "white",
-        margin: 8,
+        margin: 10,
         padding: 15,
         borderWidth: 1,
         borderRadius: 20,
         backgroundColor: "white",
         color: "black",
+    },
+    pickerContainer: {
+        width: '100%',
+        borderRadius: 20,
+        overflow: 'hidden',
+        marginVertical: 10,
+        
     },
     button: {
         width: "100%",
@@ -176,7 +188,6 @@ const pickerSelectStyles = StyleSheet.create({
     inputIOS: {
         width: "100%",
         borderColor: "white",
-        margin: 10,
         padding: 15,
         borderWidth: 1,
         borderRadius: 30,
@@ -184,10 +195,9 @@ const pickerSelectStyles = StyleSheet.create({
         color: "black",
     },
     inputAndroid: {
-        width: "97%",
+        width: "100%",
         borderColor: "white",
-        margin: 10,
-        padding: 15,
+        padding : 30,
         borderWidth: 1,
         borderRadius: 30,
         backgroundColor: "white",
