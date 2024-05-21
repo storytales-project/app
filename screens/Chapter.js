@@ -39,7 +39,9 @@ export default function Chapter({ route, navigation }) {
         },
     });
 
-    const story = data.getStoryById;
+
+    const story = data?.getStoryById;
+
 
     const handleLikePress = () => {
         setLiked(!liked);
@@ -91,7 +93,7 @@ export default function Chapter({ route, navigation }) {
                                             <Text style={styles.cardTitle}>
                                                 {page.chapter}
                                             </Text>
-                                        </View>      
+                                        </View>
                                         <AntDesign
                                             name="caretright"
                                             size={24}
