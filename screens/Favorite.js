@@ -1,59 +1,84 @@
-import React, { useState } from 'react';
-import { ImageBackground, StatusBar, StyleSheet, Text, TouchableHighlight, View, Image } from 'react-native';
+import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Card from "../components/Card";
 import { FontAwesome } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { gql, useQuery } from "@apollo/client";
 
-const Tab = createBottomTabNavigator();
+const MYSTORIES = gql`
+query GetMyStories {
+  getMyStories {
+    _id
+    character
+    image
+    mood
+    likes {
+      userId
+      username
+      createdAt
+      updatedAt
+    }
+    pages {
+      chapter
+      content
+      audio
+      choices
+    }
+    public
+    theme
+    title
+    userId
+  }
+}
+`
 
-export default function Test({ navigation }) {
-    const [liked, setLiked] = useState(false);
-    const [followed, setFollowed] = useState(false);
+export default function Favorite({ navigation }) {
 
-    const handleLikePress = () => {
-        setLiked(!liked);
-    };
-
-    const handleFollowPress = () => {
-        setFollowed(!followed);
-    };
+    const { loading, data, error } = useQuery(MYSTORIES);
 
     return (
-        <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={{ width: '100%', height: '100%' }}>
-            
         <View style={styles.container}>
+            <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={styles.backgroundImage}>
+                <Text style={styles.storiesText}>My stories :</Text>
+                <ScrollView horizontal={true} style={styles.scrollView}>
 
+                    <View style={styles.row}>
 
-                <View style={styles.row}>
-                    <View style={styles.card}>
-                        <Image source={require('../assets/5.jpg')} style={styles.cardImage} />
-                        <View style={styles.cardContent}>
-                            <Text style={styles.cardTitle}>Title of the Card</Text>
-                        </View>
+                        {data?.getMyStories.map((item, index) => (
+
+                            <View style={styles.card} key={index}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Chapter", { id: item._id })}>
+                                    <Image source={{ uri: item.image }} style={styles.cardImage} />
+                                    <View style={styles.cardContent}>
+                                        <Text style={styles.cardTitle}>{item.title}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+
                     </View>
-                    <View style={styles.card}>
-                        <Image source={require('../assets/4.jpg')} style={styles.cardImage} />
-                        <View style={styles.cardContent}>
-                            <Text style={styles.cardTitle}>Title of the Card</Text>
-                        </View>
-                    </View>
-                </View>
 
-                <StatusBar style="auto" />
-            </View>
-
-           
-        </ImageBackground>
+                </ScrollView>
+            </ImageBackground>
+        </View>
     );
 }
-
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: "flex-start",
+        alignItems: 'center',
+
+    },
+    backgroundImage: {
+        width: '100%',
+        height: '100%',
+    },
+    image: {
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
-        color: 'white',
+        width: "100%",
+        height: 235,
+        resizeMode: "cover",
     },
     row: {
         flexDirection: 'row',
@@ -62,7 +87,7 @@ const styles = StyleSheet.create({
     },
     card: {
         flex: 1,
-        margin: 10,
+        margin: 15,
         borderRadius: 10,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         shadowColor: '#000',
@@ -70,9 +95,9 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 2,
         elevation: 5,
-        
-        
-       
+        height: 200,
+        width: 150
+
     },
     cardImage: {
         width: '100%',
@@ -87,34 +112,35 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 5,
-        color: 'white'
+        color: 'white',
     },
     cardDescription: {
         fontSize: 12,
         color: '#777',
     },
-    actions: {
+    storiesText: {
+        margin: 15,
+        marginTop: 40,
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#ffffff',
+    },
+    scrollView: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 10,
     },
-    button: {
-        backgroundColor: '#A020F0',
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        width: '90%',
+    cardContainer: {
+        flexDirection: "row",
+        gap: 10,
     },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
+    imageWrapper: {
+        position: 'relative',
     },
-    buttonMargin: {
-        marginTop: 20,
-    },
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    cameraIconWrapper: {
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        borderRadius: 15,
+        padding: 5,
     },
 });

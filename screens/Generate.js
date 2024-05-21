@@ -3,6 +3,7 @@ import { ImageBackground, StatusBar, StyleSheet, Text, TextInput, TouchableHighl
 import { LinearGradient } from 'expo-linear-gradient';
 import { gql, useMutation } from "@apollo/client";
 import RNPickerSelect from 'react-native-picker-select';
+import Lottie from "../components/Lottie";
 
 const GENERATE = gql`
 mutation AddStory($newStory: NewStory!) {
@@ -48,8 +49,9 @@ export default function Generate({ navigation }) {
 
     const handleGenerate = async () => {
         try {
-            await generate({ variables: { newStory: { character, title, mood, theme, language } } });
-            navigation.navigate('Chapter');
+            const result = await generate({ variables: { newStory: { character, title, mood, theme, language } } });
+            // console.log(result);
+            navigation.navigate('Chapter', { id: result.data.addStory._id });
         } catch (error) {
             Alert.alert("Error", error.message);
         }
@@ -57,9 +59,10 @@ export default function Generate({ navigation }) {
 
     if (loading) {
         return (
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <ActivityIndicator size="large" />
-            </View>
+            // <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            //     <ActivityIndicator size="large" />
+            // </View>
+            <Lottie />
         );
     }
 
@@ -107,7 +110,7 @@ export default function Generate({ navigation }) {
                         value={language}
                     />
                 </View>
-                
+
                 <TouchableHighlight style={styles.button} onPress={handleGenerate}>
                     <LinearGradient
                         colors={['#00FF00', '#FFFFFF']}
@@ -159,7 +162,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         overflow: 'hidden',
         marginVertical: 10,
-        
+
     },
     button: {
         width: "100%",
@@ -197,7 +200,7 @@ const pickerSelectStyles = StyleSheet.create({
     inputAndroid: {
         width: "100%",
         borderColor: "white",
-        padding : 30,
+        padding: 30,
         borderWidth: 1,
         borderRadius: 30,
         backgroundColor: "white",

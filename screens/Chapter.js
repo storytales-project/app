@@ -41,13 +41,7 @@ export default function Chapter({ route, navigation }) {
 
     const story = data?.getStoryById;
 
-    const handleLikePress = () => {
-        setLiked(!liked);
-    };
 
-    const handleFollowPress = () => {
-        setFollowed(!followed);
-    };
 
     return (
         <ImageBackground
@@ -76,9 +70,9 @@ export default function Chapter({ route, navigation }) {
                     {story?.pages.map((page, idx) => {
                         return (
                             <View style={styles.card} key={idx}>
-                                <TouchableOpacity onPress={() => navigation.navigate("PlayStory", 
-                                    { 
-                                        page : page
+                                <TouchableOpacity onPress={() => navigation.navigate("PlayStory",
+                                    {
+                                        page: page
                                     }
                                 )}>
                                     <View style={styles.cardContent}>
@@ -95,7 +89,7 @@ export default function Chapter({ route, navigation }) {
                                             <Text style={styles.cardTitle}>
                                                 {page.chapter}
                                             </Text>
-                                        </View>      
+                                        </View>
                                         <AntDesign
                                             name="caretright"
                                             size={24}

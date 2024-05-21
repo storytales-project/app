@@ -113,5 +113,81 @@
                 }
             ]
         }
+    },
+
+    {
+        "data": {
+            "getMyStories": [
+                {
+                    "_id": "664b5f4d82ff99fc816cb0cb",
+                    "character": "Kemal",
+                    "image": "http://res.cloudinary.com/dp9n1icsc/image/upload/v1716215628/sk8d1pkvri6yirtz9uk9.png",
+                    "mood": "Sad",
+                    "likes": [],
+                    "pages": [
+                        {
+                            "chapter": "Perpisahan dan Pengertian",
+                            "content": "Di sebuah desa kecil yang dikelilingi oleh hutan lebat, tinggallah seorang anak laki-laki bernama Kemal yang memiliki seorang sahabat sejati bernama Ara. Mereka selalu bersama, bermain dan berbagi cerita setiap hari. Namun, suatu hari, Kemal merasa ada yang berbeda dengan Ara. Ara mulai menghabiskan waktu lebih banyak dengan Elina, gadis baru di desa itu, dan seringkali meninggalkan Kemal sendirian. Kemal merasa sedih dan dikhianati, namun dia berusaha mengerti dan memberi ruang pada sahabatnya itu.\n\nSuatu sore, Kemal memutuskan untuk menyendiri di tepi sungai, tempat mereka biasa memancing bersama. Saat dia duduk termenung, seekor burung hantu muncul dan berkata, 'Kemal, kadang kala persahabatan diuji. Namun, kekuatan hati akan membawa kembali apa yang sejati.' Kemal terpaku mendengar kata-kata bijak dari burung hantu tersebut. Malam itu, dia memutuskan untuk bicara dengan Ara dan mengungkapkan perasaannya.",
+                            "audio": "http://res.cloudinary.com/dp9n1icsc/video/upload/v1716215593/wnl68qvupultewrnnw8d.mp3",
+                            "choices": [
+                                "Kemal memilih untuk menghadapi Ara dan berbicara tentang perasaannya di depan rumah Ara.",
+                                "Kemal memutuskan untuk memberi Ara waktu dan ruang lebih, menunggu Ara yang datang kepadanya.",
+                                "Kemal mencari bantuan dari penduduk desa untuk mengadakan pertemuan dan membicarakan masalah persahabatan."
+                            ]
+                        }
+                    ],
+                    "public": false,
+                    "theme": "Cewe selingkuh dengan sahabat",
+                    "title": "Cewe selingkuh dengan sahabat",
+                    "userId": "664b498a82ff99fc816cb0ca"
+                },
+                {
+                    "_id": "664b5f5b82ff99fc816cb0cc",
+                    "character": "Kemal",
+                    "image": "http://res.cloudinary.com/dp9n1icsc/image/upload/v1716215642/arebqusxcczyldwa8kmm.png",
+                    "mood": "Sad",
+                    "likes": [],
+                    "pages": [
+                        {
+                            "chapter": "Misteri Burung Mistis",
+                            "content": "Di sebuah desa terpencil, hiduplah seorang anak lelaki bernama Kemal yang amat menyukai petualangan. Suatu hari, saat bermain di tepi hutan, ia bertemu dengan seekor burung cantik yang terluka. Kemal, dengan hati yang lembut, memutuskan untuk merawat burung tersebut di rumahnya. Hari-hari mereka lewati bersama dengan penuh keceriaan, namun suatu ketika, Kemal menemukan surat di bawah sarang burung tersebut yang ternyata dari sahabatnya, Arif. Isi surat itu menyatakan bahwa Arif sudah lama menyimpan perasaan kepada burung itu, sebuah makhluk mistis yang dapat berubah wujud menjadi manusia saat malam tiba. Kemal merasa sedih dan dikhianati, tetapi dia juga ingin memahami mengapa sahabatnya bisa melakukan hal ini tanpa memberitahunya terlebih dahulu.\n\nWaktu berlalu, dan Kemal mulai mengerti bahwa persahabatan terkadang diuji dengan cara yang tidak terduga. Ia menghadapi dilema antara memaafkan sahabatnya atau memutuskan persahabatan yang telah lama terjalin. Malam itu, saat bulan purnama bersinar terang, Kemal memutuskan untuk berbicara empat mata dengan Arif. Mereka duduk di bawah pohon tua, tempat mereka sering bermain semasa kecil, mencoba menyelesaikan permasalahan yang telah merenggangkan hubungan mereka.",
+                            "audio": "http://res.cloudinary.com/dp9n1icsc/video/upload/v1716215618/vjhgrg3sjfduzv08pznu.mp3",
+                            "choices": [
+                                "Kemal memilih untuk memaafkan Arif dan meminta penjelasan lebih lanjut tentang kehidupan mistis burung itu.",
+                                "Kemal memutuskan untuk mengakhiri persahabatannya dengan Arif dan membebaskan burung mistis tersebut ke alam liar.",
+                                "Kemal dan Arif bersama-sama mencari tahu lebih jauh tentang asal-usul burung mistis tersebut dan petualangan baru mereka berdua dimulai."
+                            ]
+                        }
+                    ],
+                    "public": false,
+                    "theme": "Cewe selingkuh dengan sahabat",
+                    "title": "Cewe selingkuh dengan sahabat",
+                    "userId": "664b498a82ff99fc816cb0ca"
+                },
+                {
+                    "_id": "664b5f9f82ff99fc816cb0cd",
+                    "character": "Kemal",
+                    "image": "http://res.cloudinary.com/dp9n1icsc/image/upload/v1716215710/ws5gw1ogrxuyj4zgiqub.png",
+                    "mood": "Sad",
+                    "likes": [],
+                    "pages": [
+                        {
+                            "chapter": "Malam Hujan dan Sahabat Sejati",
+                            "content": "Kemal, seorang bocah yang ceria, merasa gundah suatu malam ketika mendengar suara hujan yang menderu di luar jendela kamarnya. Dia ingat bahwa besok adalah hari di mana ia harus membawakan tugas sekolah yang sangat penting. Namun, ributnya perselisihan antara kedua orang tuanya beberapa hari yang lalu membuatnya lupa menyelesaikan tugasnya. Dalam kesepian, ia memandang langit berkelabat melalui jendela kaca yang berembun, berharap ada teman yang bisa menghibur kesedihannya.\n\nTiba-tiba, lampu kamarnya berkedip-kedip dan dari balik tirai muncul sosok Bayu, sahabat karibnya, yang juga merupakan tetangga sebelah rumah. Bayu, mengetahui bahwa temannya sedang sedih, membawa permainan papan favorit mereka untuk bermain bersama, mencoba mengalihkan kemurungan Kemal. Sementara mereka bermain, Bayu bercerita tentang kisah-kisah petualangannya yang menyenangkan, membuat Kemal lupa sejenak tentang masalah-masalah yang sedang dihadapinya. Di tengah canda tawa, Kemal mulai merasa lebih baik dan bersyukur memiliki teman seperti Bayu.",
+                            "audio": "http://res.cloudinary.com/dp9n1icsc/video/upload/v1716215688/zrfwvvgknzqbzedblu1w.mp3",
+                            "choices": [
+                                "Bermain permainan papan sampai mereka tertidur lelap di kamari.",
+                                "Membahas rencana untuk melengkapi tugas sekolah kemal bersama-sama esok hari.",
+                                "Mengajak Bayu untuk menginap dan menonton film kesukaan mereka."
+                            ]
+                        }
+                    ],
+                    "public": false,
+                    "theme": "Cewe selingkuh dengan sahabat",
+                    "title": "Cewe selingkuh dengan sahabat",
+                    "userId": "664b498a82ff99fc816cb0ca"
+                }
+            ]
+        }
     }
 ]
