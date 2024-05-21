@@ -31,7 +31,7 @@ const PlayStory = ({ route, navigation }) => {
         }
     };
 
-    console.log(route.params.page);
+    const {page} = route.params;
 
     const onSaveImageAsync = async () => {
         // Implement this function
@@ -56,7 +56,7 @@ const PlayStory = ({ route, navigation }) => {
     const play = async () => {
         try {
             const { sound: playbackObject } = await Audio.Sound.createAsync(
-                { uri: "https://res.cloudinary.com/dp9n1icsc/video/upload/v1715833322/dlrmny8n73d9ws06l8h8.mp3" },
+                { uri: page?.audio },
                 { shouldPlay: true }
             );
             const { sound: playbackBacksound } = await Audio.Sound.createAsync(
