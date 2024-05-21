@@ -7,7 +7,7 @@ import CircleButton from '../components/CircleButton';
 import IconButton from '../components/IconButton';
 import ImageViewer from '../components/ImageViewer';
 
-const PlayStory = ({ navigation }) => {
+const PlayStory = ({ route, navigation }) => {
     const [playState, setPlayState] = useState('paused');
     const [playSeconds, setPlaySeconds] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -30,6 +30,8 @@ const PlayStory = ({ navigation }) => {
             }
         }
     };
+
+    console.log(route.params.page);
 
     const onSaveImageAsync = async () => {
         // Implement this function
@@ -107,12 +109,6 @@ const PlayStory = ({ navigation }) => {
                     <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
                 </View>
             </View>
-            <TouchableHighlight style={{}} onPress={() => navigation.navigate('Register')}>
-                <Text style={{ textAlign: "center", color: "white" }}>Go to Register..</Text>
-            </TouchableHighlight>
-            <TouchableHighlight style={{}} onPress={() => navigation.navigate('Profile')}>
-                <Text style={{ textAlign: "center", color: "white" }}>Go to profile..</Text>
-            </TouchableHighlight>
             {/* Slider and other UI components */}
             <StatusBar style="auto" />
         </View>
