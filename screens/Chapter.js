@@ -17,6 +17,7 @@ const GET_STORY_BY_ID = gql`
             _id
             character
             image
+            mood
             pages {
                 chapter
                 content
@@ -72,7 +73,10 @@ export default function Chapter({ route, navigation }) {
                             <View style={styles.card} key={idx}>
                                 <TouchableOpacity onPress={() => navigation.navigate("PlayStory",
                                     {
-                                        page: page
+                                        page: page,
+                                        mood: story.mood,
+                                        title: story.title,
+                                        image: story.image
                                     }
                                 )}>
                                     <View style={styles.cardContent}>

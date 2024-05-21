@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
 
@@ -31,27 +31,46 @@ const PlayStory = ({ route, navigation }) => {
         }
     };
 
-    const {page} = route.params;
+    const { page, mood, title, image } = route.params;
+
+    // console.log(mood, title, image);
 
     const onSaveImageAsync = async () => {
         // Implement this function
     };
 
-    // untuk cerah
-    // { uri: "https://ik.imagekit.io/yehezkielt/Swans%20In%20Flight%20-%20Asher%20Fulero.mp3?updatedAt=1716263600233" },
-    // { shouldPlay: true, volume: 0.1 },
+    let backsoundOption;
+    if (mood === "Happy") {
+        backsoundOption = {
+            uri: "https://ik.imagekit.io/yehezkielt/Swans%20In%20Flight%20-%20Asher%20Fulero.mp3?updatedAt=1716263600233",
+            shouldPlay: true,
+            volume: 0.1
+        };
+    } else if (mood === "Fun") {
+        backsoundOption = {
+            uri: "https://ik.imagekit.io/yehezkielt/No.9_Esther_s%20Waltz%20-%20Esther%20Abrami.mp3?updatedAt=1716262251733",
+            shouldPlay: true,
+            volume: 0.1
+        };
+    } else if (mood === "Sad") {
+        backsoundOption = {
+            uri: "https://ik.imagekit.io/yehezkielt/Wistful%20Harp%20-%20Andrew%20Huang.mp3?updatedAt=1716262255299",
+            shouldPlay: true,
+            volume: 0.2
+        };
+    } else if (mood === "Thriller") {
+        backsoundOption = {
+            uri: "https://ik.imagekit.io/yehezkielt/Bourree%20-%20Joel%20Cummins.mp3?updatedAt=1716262399068",
+            shouldPlay: true,
+            volume: 0.1
+        };
+    }
 
-    // untuk fun
-    // { uri: "https://ik.imagekit.io/yehezkielt/No.9_Esther_s%20Waltz%20-%20Esther%20Abrami.mp3?updatedAt=1716262251733" },
-    // { shouldPlay: true, volume: 0.1 },
+    // console.log(mood);
+    // console.log(backsoundOption.uri);
+    // console.log(backsoundOption.volume);
 
-    // untuk sedih 
-    // { uri: "https://ik.imagekit.io/yehezkielt/Wistful%20Harp%20-%20Andrew%20Huang.mp3?updatedAt=1716262255299" },
-    // { shouldPlay: true, volume: 0.2 },
 
-    // untuk thriller
-    // { uri: "https://ik.imagekit.io/yehezkielt/Bourree%20-%20Joel%20Cummins.mp3?updatedAt=1716262399068" },
-    // { shouldPlay: true, volume: 0.1 },
 
     const play = async () => {
         try {
@@ -60,14 +79,14 @@ const PlayStory = ({ route, navigation }) => {
                 { shouldPlay: true }
             );
             const { sound: playbackBacksound } = await Audio.Sound.createAsync(
-                { uri: "https://ik.imagekit.io/yehezkielt/Bourree%20-%20Joel%20Cummins.mp3?updatedAt=1716262399068" },
-                { shouldPlay: true, volume: 0.1 },
+                { uri: backsoundOption.uri },
+                { shouldPlay: true, volume: backsoundOption.volume }
             );
 
             setSound(playbackObject);
             setBacksound(playbackBacksound);
             playbackObject.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
-            playbackBacksound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
+            // playbackBacksound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
             setPlayState('playing');
         } catch (error) {
             console.error('Error loading sound:', error);
@@ -80,18 +99,22 @@ const PlayStory = ({ route, navigation }) => {
         if (status.didJustFinish) {
             setPlayState('paused');
             setPlaySeconds(0);
+            backsound.stopAsync();
+
         } else {
             setPlaySeconds(status.positionMillis / 1000);
             setDuration(status.durationMillis / 1000);
         }
     };
 
-    const onReset = () => {
+    const onReset = async () => {
         if (sound) {
             backsound.stopAsync()
             sound.stopAsync();
             setPlayState('paused');
             setPlaySeconds(0);
+            await sound.setPositionAsync(0);
+            await backsound.setPositionAsync(0);
         }
     };
 
@@ -99,8 +122,10 @@ const PlayStory = ({ route, navigation }) => {
         <View style={styles.container}>
             <View style={styles.imageContainer}>
                 <ImageViewer
-                    placeholderImageSource={{ uri: "https://res.cloudinary.com/dp9n1icsc/image/upload/v1715843207/yni66ij3xmtwz0mu6uyh.png" }}
+                    placeholderImageSource={{ uri: image }}
+
                 />
+                <Text style={styles.title}>{title}</Text>
             </View>
             <View style={styles.optionsContainer}>
                 <View style={styles.optionsRow}>
@@ -136,6 +161,13 @@ const styles = StyleSheet.create({
     optionsRow: {
         alignItems: 'center',
         flexDirection: 'row',
+    },
+    title: {
+        alignItems: 'center',
+        color: "white",
+        textAlign: "center",
+        marginTop: 15,
+        fontSize: 18
     },
 });
 
