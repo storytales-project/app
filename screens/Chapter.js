@@ -76,7 +76,11 @@ export default function Chapter({ route, navigation }) {
                     {story?.pages.map((page, idx) => {
                         return (
                             <View style={styles.card} key={idx}>
-                                <TouchableOpacity onPress={() => navigation.navigate("PlayStory", { page : page})}>
+                                <TouchableOpacity onPress={() => navigation.navigate("PlayStory", 
+                                    { 
+                                        page : page
+                                    }
+                                )}>
                                     <View style={styles.cardContent}>
                                         <View
                                             style={{
