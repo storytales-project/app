@@ -3,35 +3,46 @@ import Card from "../components/Card";
 import { FontAwesome } from '@expo/vector-icons';
 import { gql, useQuery } from "@apollo/client";
 
-const STORIES = gql`
-query GetPublicStories {
-    getPublicStories {
-        _id
-        title
-        image
+const MYSTORIES = gql`
+query GetMyStories {
+  getMyStories {
+    _id
+    character
+    image
+    mood
+    likes {
+      userId
+      username
+      createdAt
+      updatedAt
     }
+    pages {
+      chapter
+      content
+      audio
+      choices
+    }
+    public
+    theme
+    title
+    userId
+  }
 }
 `
 
 export default function Favorite({ navigation }) {
 
-    const { loading, data, error } = useQuery(STORIES);
+    const { loading, data, error } = useQuery(MYSTORIES);
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../assets/8.jpg')} style={styles.backgroundImage}>
-                <View style={styles.imageWrapper}>
-                    <Image source={require("../assets/2.jpg")} style={styles.image} />
-                    <TouchableOpacity style={styles.cameraIconWrapper} onPress={() => navigation.navigate('Generate')}>
-                        <FontAwesome name="plus" size={34} color="white" />
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.storiesText}>Recent stories :</Text>
+            <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={styles.backgroundImage}>
+                <Text style={styles.storiesText}>My stories :</Text>
                 <ScrollView horizontal={true} style={styles.scrollView}>
 
                     <View style={styles.row}>
 
-                        {data?.getPublicStories.map((item, index) => (
+                        {data?.getMyStories.map((item, index) => (
 
                             <View style={styles.card} key={index}>
                                 <TouchableOpacity onPress={() => navigation.navigate("Chapter", { id: item._id })}>
@@ -108,7 +119,7 @@ const styles = StyleSheet.create({
         color: '#777',
     },
     storiesText: {
-        margin: 20,
+        margin: 15,
         marginTop: 40,
         fontSize: 18,
         fontWeight: 'bold',
