@@ -14,6 +14,7 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { STORIES } from "./Home";
+import { FAVORITES } from "./Favorite";
 
 export const GET_STORY_BY_ID = gql`
     query getStoryById($getStoryByIdId: ID) {
@@ -44,6 +45,14 @@ const POST_PUBLIC = gql`
     }
 `;
 
+const POST_FAVORITE = gql`
+    mutation AddFavorite($storyId: ID) {
+  addFavorite(storyId: $storyId) {
+    _id
+  }
+}
+`;
+
 export default function Chapter({ route, navigation }) {
     const [liked, setLiked] = useState(false);
     const [followed, setFollowed] = useState(false);
@@ -55,7 +64,7 @@ export default function Chapter({ route, navigation }) {
         },
     });
 
-    const [setPublic, { loading: loading1, error: error1 }] = useMutation(POST_PUBLIC, {
+    const [setPublic, { }] = useMutation(POST_PUBLIC, {
         refetchQueries: [{ query: STORIES }],
     });
 
@@ -64,6 +73,20 @@ export default function Chapter({ route, navigation }) {
             const result = await setPublic({ variables: { storyId: id } });
             console.log(result);
             navigation.navigate("Home");
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        }
+    };
+
+    const [AddFavorite, { }] = useMutation(POST_FAVORITE, {
+        refetchQueries: [{ query: FAVORITES }],
+    });
+
+    const handleFavorite = async () => {
+        try {
+            const result = await AddFavorite({ variables: { storyId: id } });
+            console.log(result);
+            navigation.navigate("Favorite");
         } catch (error) {
             Alert.alert("Error", error.message);
         }
@@ -105,7 +128,7 @@ export default function Chapter({ route, navigation }) {
                             <Text style={{ color: "white", textAlign: "center" }}>{story?.description}</Text>
                         )}
 
-                        <TouchableOpacity onPress={() => console.log("untuk favorite")}>
+                        <TouchableOpacity onPress={handleFavorite}>
                             <View
                                 style={{
                                     backgroundColor: "white",

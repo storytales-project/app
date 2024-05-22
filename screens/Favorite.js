@@ -8,45 +8,49 @@ const MYSTORIES = gql`
 query GetMyStories {
   getMyStories {
     _id
-    character
+    title
     image
+    description
+    character
     mood
-    likes {
-      userId
-      username
-      createdAt
-      updatedAt
-    }
-    pages {
-      chapter
-      content
-      audio
-      choices
-    }
     public
     theme
-    title
     userId
   }
 }
 `
+
+const FAVORITES = gql`
+query Story {
+  getUserFavorites {
+    story {
+      _id
+      image
+      title
+    }
+  }
+}`
 
 export default function Favorite({ navigation }) {
 
     const { loading, data, error, refetch } = useQuery(MYSTORIES, {
         refetchQuery: [{ query: MYSTORIES }]
     });
+    const { loading: loading1, data: data1, error: error1, refetch: refetch1 } = useQuery(FAVORITES, {
+        refetchQuery: [{ query: FAVORITES }]
+    });
 
-    // console.log(data, "<<<<");
+    console.log(data1, "<<<<");
 
     useEffect(() => {
         refetch()
-        // console.log("x")
+        refetch1()
     }, [])
 
     const handleRefresh = async () => {
         // setRefresh(true)
         await refetch()
+        await refetch1()
     }
 
     return (
@@ -72,6 +76,28 @@ export default function Favorite({ navigation }) {
                     </View>
 
                 </ScrollView>
+
+                <Text style={styles.storiesText}>My favorite :</Text>
+                <ScrollView horizontal={true} style={styles.scrollView}>
+
+                    <View style={styles.row}>
+
+                        {data1?.getUserFavorites.map((item, index) => (
+
+                            <View style={styles.card} key={index}>
+                                <TouchableOpacity onPress={() => navigation.navigate("Chapter", { id: item.story._id })}>
+                                    <Image source={{ uri: item.story.image }} style={styles.cardImage} />
+                                    <View style={styles.cardContent}>
+                                        <Text style={styles.cardTitle}>{item.story.title}</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+
+                    </View>
+
+                </ScrollView>
+
             </ImageBackground>
         </View>
     );
