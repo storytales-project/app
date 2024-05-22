@@ -18,7 +18,7 @@ export default function UpdateProfile({ navigation, route }) {
 
     const [username, setUsername] = useState(profile.username);
     const [email, setEmail] = useState(profile.email);
-    const [imageUrl, setimageUrl] = useState(profile.imageUrl);
+    const [imageUrl, setimageUrl] = useState("https://img.freepik.com/free-photo/3d-rendering-boy-wearing-cap-with-letter-r_1142-40523.jpg");
     const [updateProfile] = useMutation(UPDATE_PROFILE)
 
     const handleUpdateProfile = async () => {
