@@ -20,7 +20,7 @@ query GetMyStories {
 }
 `
 
-const FAVORITES = gql`
+export const FAVORITES = gql`
 query Story {
   getUserFavorites {
     story {
