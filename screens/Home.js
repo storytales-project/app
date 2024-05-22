@@ -2,6 +2,8 @@ import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity,
 import Card from "../components/Card";
 import { FontAwesome } from '@expo/vector-icons';
 import { gql, useQuery } from "@apollo/client";
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 const STORIES = gql`
 query GetPublicStories {
@@ -22,9 +24,6 @@ export default function Home({ navigation }) {
             <ImageBackground source={require('../assets/8.jpg')} style={styles.backgroundImage}>
                 <View style={styles.imageWrapper}>
                     <Image source={require("../assets/2.jpg")} style={styles.image} />
-                    <TouchableOpacity style={styles.cameraIconWrapper} onPress={() => navigation.navigate('Generate')}>
-                        <FontAwesome name="plus" size={34} color="white" />
-                    </TouchableOpacity>
                 </View>
                 <Text style={styles.storiesText}>Recent stories :</Text>
                 <ScrollView horizontal={true} style={styles.scrollView}>
@@ -46,6 +45,21 @@ export default function Home({ navigation }) {
                     </View>
 
                 </ScrollView>
+                <View style={{ flex: 1, alignItems: "center" }}>
+
+                    <TouchableOpacity onPress={() => navigation.navigate('Generate')}>
+                        {/* <FontAwesome name="plus" size={34} color="white" /> */}
+                        {/* <Text style={{ color: "white", padding: 10 }}>Create Your Own Story</Text> */}
+                        <LinearGradient
+                            colors={['yellow', '#FFFFFF']}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
+                            style={styles.gradient}
+                        >
+                            <Text style={styles.buttonText}>Create Your Own Story</Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </View>
             </ImageBackground>
         </View>
     );
@@ -126,10 +140,20 @@ const styles = StyleSheet.create({
     },
     cameraIconWrapper: {
         position: 'absolute',
-        bottom: 10,
-        right: 10,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        bottom: 30,
+        justifyContent: "center",
+        backgroundColor: 'hsl(0, 100%, 70%)',
         borderRadius: 15,
         padding: 5,
     },
+    gradient: {
+        padding: 15,
+        alignItems: 'center',
+        borderRadius: 20
+    },
+    buttonText: {
+        textAlign: "center",
+        fontWeight: "400",
+        color: "black",
+    }
 });

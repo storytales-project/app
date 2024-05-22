@@ -17,6 +17,7 @@ import UpdateProfile from './screens/Updateprofile';
 import { ApolloProvider } from '@apollo/client';
 import AuthContext from './context/Auth';
 import * as SecureStore from 'expo-secure-store';
+import { BlurView } from 'expo-blur';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,8 +52,11 @@ function TabBottom() {
 
                     return <FontAwesome name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: 'black',
+                tabBarActiveTintColor: 'gold',
                 tabBarInactiveTintColor: 'gray',
+                tabBarInactiveBackgroundColor: "#000435",
+                tabBarActiveBackgroundColor: "#000435",
+
             })}
         >
             <Tab.Screen name="Home" component={Home} options={{ headerShown: false }} />

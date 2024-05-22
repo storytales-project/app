@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import Lottie from "./Lottie";
+import { GET_STORY_BY_ID } from "../screens/Chapter";
 
 const CHOICES = gql`
     query Query($getStoryChoicesId: ID) {
@@ -17,23 +18,23 @@ const CHOICES = gql`
     }
 `;
 
-const GET_STORY_BY_ID = gql`
-    query Query($getStoryByIdId: ID) {
-        getStoryById(id: $getStoryByIdId) {
-            _id
-            character
-            image
-            mood
-            pages {
-                chapter
-                content
-                audio
-                choices
-            }
-            title
-        }
-    }
-`;
+// const GET_STORY_BY_ID = gql`
+//     query Query($getStoryByIdId: ID) {
+//         getStoryById(id: $getStoryByIdId) {
+//             _id
+//             character
+//             image
+//             mood
+//             pages {
+//                 chapter
+//                 content
+//                 audio
+//                 choices
+//             }
+//             title
+//         }
+//     }
+// `;
 
 const PICK_CHOICE = gql`
     mutation Mutation($pick: storyPick) {
@@ -54,7 +55,13 @@ const BottomSheet = ({ setStatus, storyId, navigation }) => {
     });
 
     const [pickChoice, { loading: pickLoading, error: pickError }] =
-        useMutation(PICK_CHOICE, {refetchQueries : [{query : GET_STORY_BY_ID}] });
+        useMutation(PICK_CHOICE, {
+            refetchQueries: [{
+                query: GET_STORY_BY_ID, variables: {
+                    getStoryByIdId: storyId,
+                }
+            }]
+        });
 
     const choices = data?.getStoryChoices;
 
@@ -92,23 +99,23 @@ const BottomSheet = ({ setStatus, storyId, navigation }) => {
 
     const inputChoice = async (choice) => {
         try {
-            // const result = await pickChoice({
-            //     variables: {
-            //         pick: {
-            //             choice: choice,
-            //             storyId: storyId,
-            //         },
-            //     },
-            // });
+            const result = await pickChoice({
+                variables: {
+                    pick: {
+                        choice: choice,
+                        storyId: storyId,
+                    },
+                },
+            });
 
-            navigation.navigate('Chapter', {id : storyId})
+            navigation.navigate('Chapter', { id: storyId })
         } catch (error) {
             Alert.alert("Error", error.message);
         }
     };
 
     if (pickLoading) {
-        return (<Lottie/>)
+        return (<Lottie />)
     }
 
     return (

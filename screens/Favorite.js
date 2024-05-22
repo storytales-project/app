@@ -34,14 +34,14 @@ query GetMyStories {
 export default function Favorite({ navigation }) {
 
     const { loading, data, error, refetch } = useQuery(MYSTORIES, {
-        refetchQuery : [{query : MYSTORIES}]
+        refetchQuery: [{ query: MYSTORIES }]
     });
 
-    console.log(data, "<<<<");
+    // console.log(data, "<<<<");
 
     useEffect(() => {
         refetch()
-        console.log("x")
+        // console.log("x")
     }, [])
 
     const handleRefresh = async () => {
@@ -51,7 +51,7 @@ export default function Favorite({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={styles.backgroundImage} refreshControl={<RefreshControl onRefresh={handleRefresh}/>}>
+            <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={styles.backgroundImage} refreshControl={<RefreshControl onRefresh={handleRefresh} />}>
                 <Text style={styles.storiesText}>My stories :</Text>
                 <ScrollView horizontal={true} style={styles.scrollView}>
 

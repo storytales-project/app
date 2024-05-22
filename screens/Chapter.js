@@ -12,8 +12,8 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { gql, useQuery } from "@apollo/client";
 
-const GET_STORY_BY_ID = gql`
-    query Query($getStoryByIdId: ID) {
+export const GET_STORY_BY_ID = gql`
+    query getStoryById($getStoryByIdId: ID) {
         getStoryById(id: $getStoryByIdId) {
             _id
             character
@@ -44,7 +44,7 @@ export default function Chapter({ route, navigation }) {
     useEffect(() => {
         if (data) {
             refetch()
-            console.log('xxa')
+            // console.log('xxa')
         }
     }, [data])
 
@@ -60,7 +60,7 @@ export default function Chapter({ route, navigation }) {
         <ImageBackground
             source={require("../assets/7.jpg")}
             style={{ flex: 1, display: "flex" }}
-            refreshControl={<RefreshControl onRefresh={handleRefresh}/>}
+            refreshControl={<RefreshControl onRefresh={handleRefresh} />}
         >
             <View style={styles.infoContainer}>
                 <View
@@ -90,8 +90,9 @@ export default function Chapter({ route, navigation }) {
                                         mood: story.mood,
                                         title: story.title,
                                         image: story.image,
-                                        pages : story.pages,
-                                        storyId : story._id
+                                        pages: story.pages,
+                                        storyId: story._id,
+                                        index: idx
                                     }
                                 )}>
                                     <View style={styles.cardContent}>

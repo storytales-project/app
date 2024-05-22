@@ -26,7 +26,9 @@ query GetProfile {
 
 
 export default function Profile({ navigation }) {
+
     const [topUpCredit] = useMutation(TOPUP_CREDIT)
+
 
     const { loading, data, error, refetch } = useQuery(GET_PROFILE, { fetchPolicy: "no-cache" })
     console.log(data, loading, error);
@@ -45,11 +47,13 @@ export default function Profile({ navigation }) {
 
     const handlePayment = async () => {
         try {
+
             const result = await topUpCredit();
             console.log(result, "aaaaaaaaaaaaaaaaaaa");
             navigation.navigate('Payment', { url: result.data.topUpCredit, profile: profile });
         } catch (error) {
             throw error
+
         }
 
 
@@ -94,7 +98,9 @@ export default function Profile({ navigation }) {
                                 <FontAwesome name="edit" size={24} color="white" />
                             </TouchableOpacity>
                         </View>
+
                         <Text style={styles.profileName}>{profile?.username}</Text>
+
                         <Text style={styles.profileLabel}>Email</Text>
                         <Text style={styles.profileDetail}>{profile?.email}</Text>
                         <Text style={styles.profileLabel}>Credit</Text>
