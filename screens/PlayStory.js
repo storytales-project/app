@@ -21,6 +21,7 @@ const PlayStory = ({ route, navigation }) => {
     const [list, setList] = useState(false);
     const windowWidth = Dimensions.get('window').width;
 
+
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
     }, []);
