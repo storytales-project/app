@@ -3,13 +3,13 @@ import { Image, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, 
 import { FontAwesome } from '@expo/vector-icons';
 import { gql, useMutation } from '@apollo/client';
 
-const TOPUP_CREDIT=gql`
+const TOPUP_CREDIT = gql`
  mutation Mutation {
   topUpCredit
 }`
 
 export default function Profile({ navigation }) {
-    const [topUpCredit, {data, loading, error}] =useMutation(TOPUP_CREDIT)
+    const [topUpCredit, { data, loading, error }] = useMutation(TOPUP_CREDIT)
     const profile = {
         username: "Toto Toharudin",
         email: "totosdnfkkkkkkkkkkk.com",
@@ -22,12 +22,12 @@ export default function Profile({ navigation }) {
     const handlePayment = async () => {
         try {
             const result = await topUpCredit()
-            console.log(result, "aaaaaaaaaaaaaaaaaaa");
-            navigation.navigate('Payment', {url: result.data.topUpCredit});
+            // console.log(result, "aaaaaaaaaaaaaaaaaaa");
+            navigation.navigate('Payment', { url: result.data.topUpCredit });
         } catch (error) {
-            
+
         }
-       
+
     };
 
     return (
@@ -45,7 +45,7 @@ export default function Profile({ navigation }) {
                         <Text style={styles.status1}>Status</Text>
 
                         <Text style={styles.status}>{profile.status}</Text>
-                        
+
                         <Text style={styles.profileLabel}>Email</Text>
                         <Text style={styles.profileDetail}>{profile.email}</Text>
                     </View>

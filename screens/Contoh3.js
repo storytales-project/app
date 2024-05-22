@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Alert, Animated, Dimensions, LogBox, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Alert, Animated, Dimensions, LogBox } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
-import BottomSheet from "../components/BottomSheet";
 
 import CircleButton from '../components/CircleButton';
 import IconButton from '../components/IconButton';
 import ImageViewer from '../components/ImageViewer';
-import BottomSheetText from '../components/BottomSheetText';
 
-const PlayStory = ({ route, navigation }) => {
+const PlayStory = ({ route }) => {
     const [playState, setPlayState] = useState('paused');
     const [sound, setSound] = useState(null);
     const [backsound, setBacksound] = useState(null);
     const [durationMillis, setDurationMillis] = useState(0);
     const [counter, setCounter] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
     const [progress, setProgress] = useState(new Animated.Value(0));
-    const [status, setStatus] = useState(false);
-    const [list, setList] = useState(false);
     const windowWidth = Dimensions.get('window').width;
+
+    const { page, mood, title, image } = route.params;
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
@@ -58,7 +55,6 @@ const PlayStory = ({ route, navigation }) => {
 
                     // Stop both sound and backsound when story finishes
                     stopSounds();
-                    setProgress(new Animated.Value(0));
                 }
             }, 1000);
 
@@ -71,54 +67,26 @@ const PlayStory = ({ route, navigation }) => {
         }
     }, [durationMillis, playState]);
 
+
     const onPlayStory = async () => {
         if (!sound) {
-            await loadSounds(currentPage);
+            await loadSounds();
         } else {
-            if (playState === "paused") {
+            if (playState === 'paused') {
                 await sound.playAsync();
                 await backsound.playAsync();
-                setPlayState("playing");
+                setPlayState('playing');
             } else {
                 await sound.pauseAsync();
                 await backsound.pauseAsync();
-                setPlayState("paused");
+                setPlayState('paused');
             }
         }
     };
 
-    const { page, mood, title, image, pages, storyId, index } = route.params;
-
-    // setCurrentPage(index)
-
     const onSaveImageAsync = async () => {
-        if (currentPage < pages.length - 1) {
-            await stopSounds();
-            setProgress(new Animated.Value(0));
-
-            setCurrentPage((prev) => prev + 1);
-            setSound(null)
-            await loadSounds(currentPage + 1);
-        }
+        // Implement this function
     };
-
-    const onBack = async () => {
-        if (currentPage > 0) {
-            await stopSounds();
-            setProgress(new Animated.Value(0));
-
-            setCurrentPage((prev) => prev - 1);
-            setSound(null)
-            await loadSounds(currentPage - 1);
-        }
-    };
-
-    const onList = () => {
-        return (
-            <BottomSheetText content={page.content} />
-        )
-    }
-
 
     const backsoundOption = {
         Happy: {
@@ -136,17 +104,17 @@ const PlayStory = ({ route, navigation }) => {
             shouldPlay: true,
             volume: 0.2,
         },
-        Thrilling: {
+        Thriller: {
             uri: 'https://ik.imagekit.io/yehezkielt/Bourree%20-%20Joel%20Cummins.mp3?updatedAt=1716262399068',
             shouldPlay: true,
             volume: 0.1,
         },
     }[mood];
 
-    const loadSounds = async (currentPage) => {
+    const loadSounds = async () => {
         try {
             const { sound: playbackObject } = await Audio.Sound.createAsync(
-                { uri: pages[currentPage]?.audio },
+                { uri: page?.audio },
                 { shouldPlay: true },
                 (status) => setDurationMillis(status.durationMillis)
             );
@@ -165,88 +133,43 @@ const PlayStory = ({ route, navigation }) => {
     };
 
     const onReset = async () => {
-        await stopSounds();
-        setPlayState('paused');
-        setCounter(0);
-        setProgress(new Animated.Value(0));
+        if (sound) {
+            await sound.stopAsync();
+            await backsound.stopAsync();
+            setPlayState('paused');
+            setCounter(0);
+            setProgress(new Animated.Value(0));
+            await sound.setPositionAsync(0);
+        }
     };
 
     const stopSounds = async () => {
         if (sound) {
             await sound.stopAsync();
-            await sound.unloadAsync();
-            setSound(null);
         }
         if (backsound) {
             await backsound.stopAsync();
-            await backsound.unloadAsync();
-            setBacksound(null);
         }
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Text style={styles.title}>{title}</Text>
-                {/* <Text style={{ color: "white" }}>Page {currentPage + 1}</Text> */}
                 <ImageViewer placeholderImageSource={{ uri: image }} />
-                <Text style={styles.chapter}>{pages[currentPage].chapter}</Text>
+                <Text style={styles.title}>{title}</Text>
+                {/* <View style={styles.progressContainer}> */}
+                {/* <Text style={styles.counter}>Counter: {counter}</Text> */}
                 <Animated.View style={[styles.progressBar, { width: progress }]} />
+                {/* </View> */}
             </View>
             <View style={styles.optionsContainer}>
                 <View style={styles.optionsRow}>
-                    <View style={{ marginRight: 25 }}>
-
-                        <IconButton
-                            icon="retweet"
-                            label="Reset"
-                            onPress={onReset}
-                        />
-                    </View>
-                    <IconButton
-                        icon="banckward"
-                        label="Prev"
-                        onPress={onBack}
-                    />
+                    <IconButton icon="refresh" label="Reset" onPress={onReset} />
                     <CircleButton onPress={onPlayStory} playState={playState} />
-                    <IconButton
-                        icon="forward"
-                        label="Next"
-                        onPress={onSaveImageAsync}
-                    />
-                    <View style={{ marginLeft: 25 }}>
-                        <IconButton
-                            icon="bars"
-                            label="Text"
-                            onPress={() => setList(true)}
-                        />
-                    </View>
+                    <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
                 </View>
             </View>
-            {pages.length < 3 && (
-                <View>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setStatus(true);
-                        }}
-                    >
-                        <View
-                            style={{
-                                backgroundColor: "white",
-                                padding: 4,
-                                paddingHorizontal: 10,
-                                borderRadius: 9,
-                                marginBottom: 10
-                            }}
-                        >
-                            <Text style={{ fontWeight: "bold" }}>Continue</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            )}
-
-            {status && <BottomSheet setStatus={setStatus} storyId={storyId} navigation={navigation} />}
-            {list && <BottomSheetText content={page.content} setList={setList} />}
+            <StatusBar style="auto" />
         </View>
     );
 };
@@ -254,41 +177,27 @@ const PlayStory = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#25292e",
-        paddingBottom: 10,
-        alignItems: "center",
+        backgroundColor: '#25292e',
+        alignItems: 'center',
     },
     imageContainer: {
         flex: 1,
         paddingTop: 58,
-    },
-    footerContainer: {
-        flex: 1 / 3,
-        alignItems: "center",
+
     },
     optionsContainer: {
         position: 'absolute',
         bottom: 80,
     },
     optionsRow: {
-        alignItems: "center",
-        flexDirection: "row",
-        justifyContent: "center",
-
+        alignItems: 'center',
+        flexDirection: 'row',
     },
     title: {
-        alignItems: "center",
-        color: "white",
-        textAlign: "center",
+        color: 'white',
+        textAlign: 'center',
+        marginTop: 15,
         fontSize: 18,
-        marginBottom: 10
-    },
-    chapter: {
-        alignItems: "center",
-        color: "white",
-        textAlign: "center",
-        fontSize: 18,
-        marginTop: 10
     },
     progressContainer: {
         position: 'absolute',
@@ -304,7 +213,6 @@ const styles = StyleSheet.create({
         height: 10,
         backgroundColor: 'white',
         borderRadius: 10,
-        marginTop: 10
     },
 });
 
