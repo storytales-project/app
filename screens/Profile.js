@@ -22,10 +22,6 @@ query GetProfile {
   }
 }`
 
-const CHANGE_CREDIT = gql`
-mutation UpdateProfile($profile: NewUser) {
-  updateProfile(profile: $profile)
-}`
 
 
 
@@ -56,9 +52,16 @@ export default function Profile({ navigation }) {
             throw error
         }
 
+
     };
 
+    const UpdateProfile = () => {
+        try {
+            navigation.navigate("UpdateProfile", { profile: profile })
+        } catch (error) {
 
+        }
+    }
 
     useFocusEffect(
         useCallback(() => {
@@ -77,16 +80,18 @@ export default function Profile({ navigation }) {
             setProfile(data?.getProfile)
         }
     }, [data])
-
+    if (!profile) {
+        return
+    }
     return (
         <>
             <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={styles.backgroundImage}>
                 <View style={styles.container}>
                     <View style={styles.profileContainer}>
                         <View style={styles.imageWrapper}>
-                            <Image source={require('../assets/sana-twice.jpg')} style={styles.profileImage} />
-                            <TouchableOpacity style={styles.cameraIconWrapper}>
-                                <FontAwesome name="camera" size={24} color="white" />
+                            <Image source={{ uri: profile?.imageUrl }} style={styles.profileImage} />
+                            <TouchableOpacity style={styles.cameraIconWrapper} onPress={UpdateProfile}>
+                                <FontAwesome name="edit" size={24} color="white" />
                             </TouchableOpacity>
                         </View>
                         <Text style={styles.profileName}>{profile?.username}</Text>
@@ -140,14 +145,14 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         marginBottom: 20,
     },
-    // cameraIconWrapper: {
-    //     position: 'absolute',
-    //     bottom: 0,
-    //     right: 0,
-    //     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    //     borderRadius: 15,
-    //     padding: 5,
-    // },
+    cameraIconWrapper: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        borderRadius: 15,
+        padding: 5,
+    },
     profileName: {
         color: 'white',
         fontSize: 24,

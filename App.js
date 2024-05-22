@@ -13,6 +13,7 @@ import Generate from './screens/Generate';
 import Payment from './screens/Payment';
 import Chapter from './screens/Chapter';
 import client from './config/apollo';
+import UpdateProfile from './screens/Updateprofile';
 import { ApolloProvider } from '@apollo/client';
 import AuthContext from './context/Auth';
 import * as SecureStore from 'expo-secure-store';
@@ -96,6 +97,7 @@ export default function App() {
                                 <Stack.Screen name="Payment" component={Payment} options={{ headerShown: false }} />
                                 <Stack.Screen name="Chapter" component={Chapter} options={{ headerShown: true }} />
                                 <Stack.Screen name="PlayStory" component={PlayStory} options={{ headerShown: true }} />
+                                <Stack.Screen name="UpdateProfile" component={UpdateProfile} options={{ headerShown: true }} />
                             </>
                         )}
                     </Stack.Navigator>

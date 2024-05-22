@@ -19,7 +19,6 @@ const PlayStory = ({ route }) => {
     const [status, setStatus] = useState(false);
     const windowWidth = Dimensions.get('window').width;
 
-    const { page, mood, title, image } = route.params;
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
