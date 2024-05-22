@@ -17,7 +17,7 @@ export default function Lottie() {
                 style={{
                     width: 200,
                     height: 200,
-                    backgroundColor: '#eee',
+                    backgroundColor: 'white',
                 }}
                 // Find more Lottie files at https://lottiefiles.com/featured
                 source={require('../assets/Animation - 1716264868803.json')}
