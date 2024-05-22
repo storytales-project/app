@@ -15,12 +15,14 @@ const PlayStory = ({ route, navigation }) => {
     const [backsound, setBacksound] = useState(null);
     const [durationMillis, setDurationMillis] = useState(0);
     const [counter, setCounter] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
     const [progress, setProgress] = useState(new Animated.Value(0));
     const [status, setStatus] = useState(false);
     const [list, setList] = useState(false);
     const windowWidth = Dimensions.get('window').width;
 
+    const { page, mood, title, image, pages, storyId, index } = route.params;
+
+    const [currentPage, setCurrentPage] = useState(index);
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
@@ -88,7 +90,7 @@ const PlayStory = ({ route, navigation }) => {
         }
     };
 
-    const { page, mood, title, image, pages, storyId, index } = route.params;
+
 
     // setCurrentPage(index)
 

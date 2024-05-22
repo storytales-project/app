@@ -60,7 +60,7 @@ const BottomSheetText = ({ content, setList }) => {
                     >
                         <Pressable>
 
-                            <Text style={{ fontSize: 16, textAlign: "center", letterSpacing: 1 }}>{content}</Text>
+                            <Text style={{ fontSize: 16, textAlign: "left", letterSpacing: 1 }}>{content}</Text>
                         </Pressable>
                     </ScrollView>
                 </Animated.View>
