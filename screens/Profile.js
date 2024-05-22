@@ -1,34 +1,86 @@
-import React from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Image, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { useFocusEffect } from '@react-navigation/native';
+import AuthContext from '../context/Auth';
+import * as SecureStore from "expo-secure-store";
 
 const TOPUP_CREDIT = gql`
  mutation Mutation {
   topUpCredit
 }`
 
-export default function Profile({ navigation }) {
-    const [topUpCredit, { data, loading, error }] = useMutation(TOPUP_CREDIT)
-    const profile = {
-        username: "Toto Toharudin",
-        email: "totosdnfkkkkkkkkkkk.com",
-    };
+const GET_PROFILE = gql`
+query GetProfile {
+  getProfile {
+    _id
+    email
+    username
+    credit
+    imageUrl
+  }
+}`
 
+const CHANGE_CREDIT = gql`
+mutation UpdateProfile($profile: NewUser) {
+  updateProfile(profile: $profile)
+}`
+
+
+
+export default function Profile({ navigation }) {
+
+    const [topUpCredit] = useMutation(TOPUP_CREDIT)
+
+
+    const { loading, data, error, refetch } = useQuery(GET_PROFILE, { fetchPolicy: "no-cache" })
+    console.log(data, loading, error);
+    const [profile, setProfile] = useState(null)
+    const { setIsSignedIn } = useContext(AuthContext);
     const handleLogout = () => {
-        navigation.navigate('Login');
+        const logout = async () => {
+            //     const token = await SecureStore.getItemAsync("access_token")
+            //     throw new Error(token)
+            // await SecureStore.deleteItemAsync("access_token", data?.loginUser.access_token);
+            setIsSignedIn(false);
+        }
+        logout()
+        // navigation.navigate('Login');
     };
 
     const handlePayment = async () => {
         try {
-            const result = await topUpCredit()
-            // console.log(result, "aaaaaaaaaaaaaaaaaaa");
-            navigation.navigate('Payment', { url: result.data.topUpCredit });
+
+            const result = await topUpCredit();
+            console.log(result, "aaaaaaaaaaaaaaaaaaa");
+            navigation.navigate('Payment', { url: result.data.topUpCredit, profile: profile });
         } catch (error) {
+            throw error
 
         }
 
     };
+
+
+
+    useFocusEffect(
+        useCallback(() => {
+            // if (data) {
+            //     setProfile(data?.getProfile)
+            // }
+            refetch()
+
+            console.log("masukkkkkkkkkkkkk");
+
+        }, [])
+    );
+
+    useEffect(() => {
+        if (data) {
+            setProfile(data?.getProfile)
+        }
+    }, [data])
 
     return (
         <>
@@ -41,13 +93,13 @@ export default function Profile({ navigation }) {
                                 <FontAwesome name="camera" size={24} color="white" />
                             </TouchableOpacity>
                         </View>
-                        <Text style={styles.profileName}>{profile.username}</Text>
-                        <Text style={styles.status1}>Status</Text>
 
-                        <Text style={styles.status}>{profile.status}</Text>
+                        <Text style={styles.profileName}>{profile?.username}</Text>
 
                         <Text style={styles.profileLabel}>Email</Text>
-                        <Text style={styles.profileDetail}>{profile.email}</Text>
+                        <Text style={styles.profileDetail}>{profile?.email}</Text>
+                        <Text style={styles.profileLabel}>Credit</Text>
+                        <Text style={styles.profileDetail}>{profile?.credit}</Text>
                     </View>
                     <View style={styles.cartContainer}>
                         <TouchableOpacity style={styles.cartButton} onPress={handlePayment}>
@@ -94,14 +146,14 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         marginBottom: 20,
     },
-    cameraIconWrapper: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        borderRadius: 15,
-        padding: 5,
-    },
+    // cameraIconWrapper: {
+    //     position: 'absolute',
+    //     bottom: 0,
+    //     right: 0,
+    //     backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    //     borderRadius: 15,
+    //     padding: 5,
+    // },
     profileName: {
         color: 'white',
         fontSize: 24,

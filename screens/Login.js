@@ -23,6 +23,7 @@ export default function Login({ navigation }) {
     const [login, { data, loading, error }] = useMutation(LOGIN, {
         onCompleted: async (data) => {
             await SecureStore.setItemAsync("access_token", data?.loginUser.access_token);
+            console.log(data?.loginUser);
             setIsSignedIn(true);
         }
     });
@@ -31,7 +32,7 @@ export default function Login({ navigation }) {
         try {
             await login({ variables: { login: { username, password } } });
             Alert.alert("Successfully Logged In");
-            navigation.navigate('TabBottom', { screen: 'Home' });
+            // navigation.navigate('TabBottom', { screen: 'Home' });
             // navigation.navigate('Home');
         } catch (error) {
             Alert.alert("Error", error.message);
