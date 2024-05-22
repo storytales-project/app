@@ -18,24 +18,6 @@ const CHOICES = gql`
     }
 `;
 
-// const GET_STORY_BY_ID = gql`
-//     query Query($getStoryByIdId: ID) {
-//         getStoryById(id: $getStoryByIdId) {
-//             _id
-//             character
-//             image
-//             mood
-//             pages {
-//                 chapter
-//                 content
-//                 audio
-//                 choices
-//             }
-//             title
-//         }
-//     }
-// `;
-
 const PICK_CHOICE = gql`
     mutation Mutation($pick: storyPick) {
         continueStory(pick: $pick) {
@@ -48,6 +30,7 @@ const PICK_CHOICE = gql`
 `;
 
 const BottomSheet = ({ setStatus, storyId, navigation }) => {
+
     const { loading, data, error } = useQuery(CHOICES, {
         variables: {
             getStoryChoicesId: storyId,
@@ -115,7 +98,12 @@ const BottomSheet = ({ setStatus, storyId, navigation }) => {
     };
 
     if (pickLoading) {
-        return (<Lottie />)
+        return (
+            <View style={{ width: "100%", height: "50%", backgroundColor: "white" }}>
+
+                <Lottie />
+            </View>
+        )
     }
 
     return (

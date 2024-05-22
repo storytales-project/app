@@ -13,8 +13,8 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { STORIES } from "./Home";
 import { FAVORITES } from "./Favorite";
+import { STORIES } from "./Home";
 
 export const GET_STORY_BY_ID = gql`
     query getStoryById($getStoryByIdId: ID) {
