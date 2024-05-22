@@ -7,10 +7,13 @@ import {
     Text,
     View,
     TouchableOpacity,
-    RefreshControl
+    Alert,
+    RefreshControl,
+    ScrollView
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { STORIES } from "./Home";
 
 export const GET_STORY_BY_ID = gql`
     query getStoryById($getStoryByIdId: ID) {
@@ -19,6 +22,8 @@ export const GET_STORY_BY_ID = gql`
             character
             image
             mood
+            public
+            description
             pages {
                 chapter
                 content
@@ -26,6 +31,15 @@ export const GET_STORY_BY_ID = gql`
                 choices
             }
             title
+        }
+    }
+`;
+
+const POST_PUBLIC = gql`
+    mutation SetPublic($storyId: ID) {
+        setPublic(storyId: $storyId) {
+            _id
+            public
         }
     }
 `;
@@ -41,88 +55,118 @@ export default function Chapter({ route, navigation }) {
         },
     });
 
+    const [setPublic, { loading: loading1, error: error1 }] = useMutation(POST_PUBLIC, {
+        refetchQueries: [{ query: STORIES }],
+    });
+
+    const handleSetPublic = async () => {
+        try {
+            const result = await setPublic({ variables: { storyId: id } });
+            console.log(result);
+            navigation.navigate("Home");
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        }
+    };
+
     useEffect(() => {
         if (data) {
-            refetch()
-            // console.log('xxa')
+            refetch();
         }
-    }, [data])
+    }, [data]);
 
     const story = data?.getStoryById;
 
     const handleRefresh = async () => {
-        // setRefresh(true)
-        await refetch()
-    }
-
+        await refetch();
+    };
 
     return (
         <ImageBackground
             source={require("../assets/7.jpg")}
             style={{ flex: 1, display: "flex" }}
-            refreshControl={<RefreshControl onRefresh={handleRefresh} />}
         >
-            <View style={styles.infoContainer}>
-                <View
-                    style={{ justifyContent: "center", alignItems: "center" }}
-                >
-                    <Image
-                        source={{ uri: story?.image }}
-                        style={styles.storyImage}
-                    />
+            <ScrollView
+                contentContainerStyle={{ flexGrow: 1 }}
+                refreshControl={<RefreshControl onRefresh={handleRefresh} />}
+            >
+                <View style={styles.infoContainer}>
+                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                        <Image source={{ uri: story?.image }} style={styles.storyImage} />
+                    </View>
+                    <View>
+                        <Text style={styles.titleText}>{story?.title}</Text>
+
+                        {!story?.description ? (
+                            <Text style={{ color: "white", textAlign: "center" }}>
+                                Cerita tentang seorang anak kecil yang berpetualang seorang diri dengan gagah berani.
+                            </Text>
+                        ) : (
+                            <Text style={{ color: "white", textAlign: "center" }}>{story?.description}</Text>
+                        )}
+
+                        <TouchableOpacity onPress={() => console.log("untuk favorite")}>
+                            <View
+                                style={{
+                                    backgroundColor: "white",
+                                    padding: 4,
+                                    paddingHorizontal: 10,
+                                    borderRadius: 9,
+                                    marginBottom: 10,
+                                    alignItems: "center"
+                                }}
+                            >
+                                <Text style={{ fontWeight: "bold" }}>Add Favorite</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View>
-                    <Text style={styles.titleText}>{story?.title}</Text>
-                    <Text style={{ color: "white", textAlign: "center" }}>
-                        Ceritanya ini deskripsi dari ceritanta, yang panjangnya
-                        sampe 2 kalimat gitu
-                    </Text>
-                </View>
-            </View>
-            <View style={styles.container}>
-                <View style={styles.col}>
-                    {story?.pages.map((page, idx) => {
-                        return (
+                <View style={styles.container}>
+                    <View style={styles.col}>
+                        {story?.pages.map((page, idx) => (
                             <View style={styles.card} key={idx}>
-                                <TouchableOpacity onPress={() => navigation.navigate("PlayStory",
-                                    {
-                                        page: page,
+                                <TouchableOpacity
+                                    onPress={() => navigation.navigate("PlayStory", {
+                                        page,
                                         mood: story.mood,
                                         title: story.title,
                                         image: story.image,
                                         pages: story.pages,
                                         storyId: story._id,
                                         index: idx
-                                    }
-                                )}>
+                                    })}
+                                >
                                     <View style={styles.cardContent}>
-                                        <View
-                                            style={{
-                                                display: "flex",
-                                                flexDirection: "column",
-                                                maxWidth: 200,
-                                            }}
-                                        >
-                                            <Text style={{ color: "white" }}>
-                                                Chapter {idx + 1}
-                                            </Text>
-                                            <Text style={styles.cardTitle}>
-                                                {page.chapter}
-                                            </Text>
+                                        <View style={{ display: "flex", flexDirection: "column", maxWidth: 200 }}>
+                                            <Text style={{ color: "white" }}>Chapter {idx + 1}</Text>
+                                            <Text style={styles.cardTitle}>{page.chapter}</Text>
                                         </View>
-                                        <AntDesign
-                                            name="caretright"
-                                            size={24}
-                                            color="white"
-                                        />
+                                        <AntDesign name="caretright" size={24} color="white" />
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                        );
-                    })}
+                        ))}
+                    </View>
+                    {story?.pages.length === 3 && story?.public === false && (
+                        <View>
+                            <TouchableOpacity onPress={handleSetPublic}>
+                                <View
+                                    style={{
+                                        backgroundColor: "white",
+                                        padding: 4,
+                                        paddingHorizontal: 10,
+                                        borderRadius: 9,
+                                        marginBottom: 10
+                                    }}
+                                >
+                                    <Text style={{ fontWeight: "bold" }}>Share Public</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    )}
                 </View>
-            </View>
-            <StatusBar style="auto" />
+                <StatusBar style="auto" />
+            </ScrollView>
         </ImageBackground>
     );
 }
