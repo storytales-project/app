@@ -4,10 +4,10 @@ import WebView from "react-native-webview";
 import { payment } from "./event";
 import { useFocusEffect } from "@react-navigation/native";
 
-const Payment = ({ navigation }) => {
+const Payment = ({ navigation, route }) => {
   const [paymentUrl, setPaymentUrl] = useState("");
   const [token, setToken] = useState("");
-
+  const {url} = route.params
   const handlePayment = useCallback(async () => {
     try {
       const response = await payment();
@@ -33,7 +33,7 @@ const Payment = ({ navigation }) => {
 
   return (
     <>
-      {paymentUrl && (
+      {url && (
         <WebView
           javaScriptEnabled={true}
           javaScriptCanOpenWindowsAutomatically={true}
@@ -41,7 +41,7 @@ const Payment = ({ navigation }) => {
           cacheEnabled={true}
           allowFileAccessFromFileURLs={true}
           allowFileAccess={true}
-          source={{ uri: paymentUrl }}
+          source={{ uri: url }}
           cacheMode="LOAD_NO_CACHE"
           onNavigationStateChange={handlingPayment}
         />

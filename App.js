@@ -79,7 +79,11 @@ export default function App() {
         <ApolloProvider client={client}>
             <AuthContext.Provider value={{ isSignedIn, setIsSignedIn }}>
                 <NavigationContainer>
-                    <Stack.Navigator initialRouteName="Login">
+                    <Stack.Navigator initialRouteName="Login" screenOptions={{
+                        headerMode: 'screen',
+                        headerTintColor: 'white',
+                        headerStyle: { backgroundColor: '#0047AB' },
+                    }}>
                         {!isSignedIn ? (
                             <>
                                 <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />

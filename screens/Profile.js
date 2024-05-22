@@ -1,20 +1,33 @@
 import React from 'react';
 import { Image, ImageBackground, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { gql, useMutation } from '@apollo/client';
+
+const TOPUP_CREDIT=gql`
+ mutation Mutation {
+  topUpCredit
+}`
 
 export default function Profile({ navigation }) {
+    const [topUpCredit, {data, loading, error}] =useMutation(TOPUP_CREDIT)
     const profile = {
         username: "Toto Toharudin",
         email: "totosdnfkkkkkkkkkkk.com",
-        status: "premium"
     };
 
     const handleLogout = () => {
         navigation.navigate('Login');
     };
 
-    const handlePayment = () => {
-        navigation.navigate('Payment');
+    const handlePayment = async () => {
+        try {
+            const result = await topUpCredit()
+            console.log(result, "aaaaaaaaaaaaaaaaaaa");
+            navigation.navigate('Payment', {url: result.data.topUpCredit});
+        } catch (error) {
+            
+        }
+       
     };
 
     return (
@@ -39,7 +52,7 @@ export default function Profile({ navigation }) {
                     <View style={styles.cartContainer}>
                         <TouchableOpacity style={styles.cartButton} onPress={handlePayment}>
                             <FontAwesome name="credit-card" size={24} color="white" />
-                            <Text style={styles.cartButtonText}>Payment</Text>
+                            <Text style={styles.cartButtonText}>Top-Up</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cartButton} onPress={handleLogout}>
                             <FontAwesome name="sign-out" size={24} color="white" />
