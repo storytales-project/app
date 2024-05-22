@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Alert, Animated, Dimensions, LogBox } from 'react-native';
+import { View, Text, StyleSheet, Alert, Animated, Dimensions, LogBox, TouchableHighlight, TouchableOpacity, } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Audio } from 'expo-av';
+import BottomSheet from "../components/BottomSheet";
+
 
 import CircleButton from '../components/CircleButton';
 import IconButton from '../components/IconButton';
@@ -14,6 +16,7 @@ const PlayStory = ({ route }) => {
     const [durationMillis, setDurationMillis] = useState(0);
     const [counter, setCounter] = useState(0);
     const [progress, setProgress] = useState(new Animated.Value(0));
+    const [status, setStatus] = useState(false);
     const windowWidth = Dimensions.get('window').width;
 
     const { page, mood, title, image } = route.params;
@@ -67,22 +70,25 @@ const PlayStory = ({ route }) => {
         }
     }, [durationMillis, playState]);
 
-
     const onPlayStory = async () => {
         if (!sound) {
             await loadSounds();
         } else {
-            if (playState === 'paused') {
+            if (playState === "paused") {
                 await sound.playAsync();
                 await backsound.playAsync();
-                setPlayState('playing');
+                setPlayState("playing");
             } else {
                 await sound.pauseAsync();
                 await backsound.pauseAsync();
-                setPlayState('paused');
+                setPlayState("paused");
             }
         }
     };
+
+    const { page, mood, title, image, pages, storyId } = route.params;
+
+    // console.log(mood, title, image);
 
     const onSaveImageAsync = async () => {
         // Implement this function
@@ -145,6 +151,12 @@ const PlayStory = ({ route }) => {
 
     const stopSounds = async () => {
         if (sound) {
+            backsound.stopAsync();
+            sound.stopAsync();
+            setPlayState("paused");
+            setPlaySeconds(0);
+            await sound.setPositionAsync(0);
+            await backsound.setPositionAsync(0);
             await sound.stopAsync();
         }
         if (backsound) {
@@ -164,12 +176,43 @@ const PlayStory = ({ route }) => {
             </View>
             <View style={styles.optionsContainer}>
                 <View style={styles.optionsRow}>
-                    <IconButton icon="refresh" label="Reset" onPress={onReset} />
+                    <IconButton
+                        icon="refresh"
+                        label="Reset"
+                        onPress={onReset}
+                    />
                     <CircleButton onPress={onPlayStory} playState={playState} />
-                    <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
+                    <IconButton
+                        icon="save-alt"
+                        label="Save"
+                        onPress={onSaveImageAsync}
+                    />
                 </View>
             </View>
-            <StatusBar style="auto" />
+            {pages.length < 3 && (
+                <View>
+                    <TouchableOpacity
+                        onPress={() => {
+                            setStatus(true);
+                        }}
+                    >
+                        <View
+                            style={{
+                                backgroundColor: "white",
+                                padding: 4,
+                                paddingHorizontal: 10,
+                                borderRadius: 9,
+                            }}
+                        >
+                            <Text style={{ fontWeight: "bold" }}>Continue</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            )}
+
+            {status && <BottomSheet setStatus={setStatus} storyId={storyId} navigation={navigation} />}
+            {/* Slider and other UI components */}
+            {/* <StatusBar style="auto" /> */}
         </View>
     );
 };
@@ -177,25 +220,30 @@ const PlayStory = ({ route }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#25292e',
-        alignItems: 'center',
+        backgroundColor: "#25292e",
+        paddingBottom: 10,
+        alignItems: "center",
     },
     imageContainer: {
         flex: 1,
         paddingTop: 58,
-
+    },
+    footerContainer: {
+        flex: 1 / 3,
+        alignItems: "center",
     },
     optionsContainer: {
         position: 'absolute',
         bottom: 80,
     },
     optionsRow: {
-        alignItems: 'center',
-        flexDirection: 'row',
+        alignItems: "center",
+        flexDirection: "row",
     },
     title: {
-        color: 'white',
-        textAlign: 'center',
+        alignItems: "center",
+        color: "white",
+        textAlign: "center",
         marginTop: 15,
         fontSize: 18,
     },

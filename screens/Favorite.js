@@ -1,7 +1,8 @@
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Card from "../components/Card";
 import { FontAwesome } from '@expo/vector-icons';
 import { gql, useQuery } from "@apollo/client";
+import { useEffect } from "react";
 
 const MYSTORIES = gql`
 query GetMyStories {
@@ -32,11 +33,25 @@ query GetMyStories {
 
 export default function Favorite({ navigation }) {
 
-    const { loading, data, error } = useQuery(MYSTORIES);
+    const { loading, data, error, refetch } = useQuery(MYSTORIES, {
+        refetchQuery : [{query : MYSTORIES}]
+    });
+
+    console.log(data, "<<<<");
+
+    useEffect(() => {
+        refetch()
+        console.log("x")
+    }, [])
+
+    const handleRefresh = async () => {
+        // setRefresh(true)
+        await refetch()
+    }
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={styles.backgroundImage}>
+            <ImageBackground source={require('../assets/education-day-scene-fantasy-style-aesthetic_23-2151040271.jpg')} style={styles.backgroundImage} refreshControl={<RefreshControl onRefresh={handleRefresh}/>}>
                 <Text style={styles.storiesText}>My stories :</Text>
                 <ScrollView horizontal={true} style={styles.scrollView}>
 

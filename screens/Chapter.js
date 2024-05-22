@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     ImageBackground,
     Image,
@@ -6,7 +6,8 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    RefreshControl
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { gql, useQuery } from "@apollo/client";
@@ -34,20 +35,32 @@ export default function Chapter({ route, navigation }) {
     const [followed, setFollowed] = useState(false);
 
     const { id } = route.params;
-    const { loading, data, error } = useQuery(GET_STORY_BY_ID, {
+    const { loading, data, error, refetch } = useQuery(GET_STORY_BY_ID, {
         variables: {
             getStoryByIdId: id,
         },
     });
 
+    useEffect(() => {
+        if (data) {
+            refetch()
+            console.log('xxa')
+        }
+    }, [data])
+
     const story = data?.getStoryById;
 
+    const handleRefresh = async () => {
+        // setRefresh(true)
+        await refetch()
+    }
 
 
     return (
         <ImageBackground
             source={require("../assets/7.jpg")}
             style={{ flex: 1, display: "flex" }}
+            refreshControl={<RefreshControl onRefresh={handleRefresh}/>}
         >
             <View style={styles.infoContainer}>
                 <View
@@ -76,7 +89,9 @@ export default function Chapter({ route, navigation }) {
                                         page: page,
                                         mood: story.mood,
                                         title: story.title,
-                                        image: story.image
+                                        image: story.image,
+                                        pages : story.pages,
+                                        storyId : story._id
                                     }
                                 )}>
                                     <View style={styles.cardContent}>
