@@ -5,7 +5,7 @@ import { gql, useQuery } from "@apollo/client";
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-const STORIES = gql`
+export const STORIES = gql`
 query GetPublicStories {
     getPublicStories {
         _id
