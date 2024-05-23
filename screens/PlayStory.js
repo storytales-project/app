@@ -249,7 +249,7 @@ const PlayStory = ({ route, navigation }) => {
             )}
 
             {status && <BottomSheet setStatus={setStatus} storyId={storyId} navigation={navigation} />}
-            {list && <BottomSheetText content={page.content} setList={setList} />}
+            {list && <BottomSheetText content={pages[currentPage].content} setList={setList} />}
         </View>
     );
 };
