@@ -54,7 +54,7 @@ export default function Login({ navigation }) {
                     <Image
                         style={styles.tinyLogo}
                         source={
-                           require("../assets/1-removebg-preview.png")
+                            require("../assets/1-removebg-preview.png")
                         }
                     />
 
@@ -88,9 +88,9 @@ export default function Login({ navigation }) {
                         <Text style={{ textAlign: "center", color: "white" }}>Go to Register</Text>
                     </TouchableHighlight>
 
-                    <TouchableHighlight style={{ margin: 20 }} onPress={() => navigation.navigate('TabBottom', { screen: 'PlayStory' })}>
+                    {/* <TouchableHighlight style={{ margin: 20 }} onPress={() => navigation.navigate('TabBottom', { screen: 'PlayStory' })}>
                         <Text style={{ textAlign: "center", color: "white" }}>Go to PlayStory</Text>
-                    </TouchableHighlight>
+                    </TouchableHighlight> */}
 
                     <StatusBar style="auto" />
                 </View>
