@@ -4,7 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { gql, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 
-const MYSTORIES = gql`
+export const MYSTORIES = gql`
 query GetMyStories {
   getMyStories {
     _id

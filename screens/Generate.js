@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { gql, useMutation } from "@apollo/client";
 import RNPickerSelect from 'react-native-picker-select';
 import Lottie from "../components/Lottie";
+import { MYSTORIES } from "./Favorite";
 
 const GENERATE = gql`
 mutation AddStory($newStory: NewStory!) {
@@ -21,7 +22,9 @@ export default function Generate({ navigation }) {
     const [title, setTitle] = useState("");
     const [language, setLanguage] = useState("");
 
-    const [generate, { loading, error }] = useMutation(GENERATE);
+    const [generate, { loading, error }] = useMutation(GENERATE, {
+        refetchQuery: [{ query: MYSTORIES }]
+    });
 
     const placeholderMood = {
         label: 'Select a Mood...',
